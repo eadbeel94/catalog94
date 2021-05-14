@@ -1,0 +1,27 @@
+
+.pop2 {
+  --background: #222;
+  --width: 300px;
+}
+
+.pop2 ion-card-header{
+  text-align: center; padding-bottom: 0;
+}
+.pop2 ion-card-title{
+  font-size: 26px; font-family: poppins1; padding-bottom: 0.5rem;
+}
+.pop2 ion-card-subtitle{
+  margin: 0;
+}
+.pop2 ion-chip{
+  background-color: var(--ion-color-step-100);
+}
+.pop2 ion-chip ion-img{
+  height: 40px; width: 40px;
+}
+.pop2 ion-chip ion-icon{
+  font-size: 45px; color: rgb(0,100,200);
+}
+.pop2 ion-label, .pop2 ion-input{
+  font-family: poppins1 !important;
+}

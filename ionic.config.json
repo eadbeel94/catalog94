@@ -1,0 +1,7 @@
+{
+  "name": "Catalog-Mobile",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
