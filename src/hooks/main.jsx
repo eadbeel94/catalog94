@@ -46,7 +46,27 @@ export const useItem= ({ req= false, data }) => {
     item,
     setData,
     initData
-  ]
+  ];
+};
+
+export const useAlert= ({ req= false, mess="", cb=()=>{} }) =>{
+  const [ item, setItem ]= useState({ req , mess, cb });
+
+  const setData= ( newMess , newCB ) => setItem({ req: true , mess: newMess , cb: newCB });
+
+  const setMess= ( newMess ) => setItem({ ...item, req: true , mess: newMess });
+
+  const setCB= ( newCB ) => setItem({ ...item, req: true , cb: newCB });
+
+  const initData= () => setItem({ req: false , mess: "", cb: ()=>{} });
+
+  return [
+    item,
+    setData,
+    setMess,
+    setCB,
+    initData
+  ];
 };
 
 //export useShowHide;

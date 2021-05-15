@@ -24,7 +24,7 @@ const fetchSend= async( url="" , type="" , send )=>{
 
     stat= json.status;
     data= json.data;
-    mess= "";
+    mess= json.mess;
 
   } catch (err) { 
 

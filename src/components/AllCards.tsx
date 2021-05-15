@@ -47,7 +47,6 @@ const AllCards: React.FC<{ cliSelection: any }> = ({ cliSelection }) => {
       
       setItems( splitRows(orgList) );
       const enable=  orgList.length >= ( ( page + 1 ) * 20 );
-      console.log( 'eanble', enable , 'pos' , page , 'length' , orgList.length );
       setScroll({ disable: !enable, pos: page });
     }
 
@@ -55,19 +54,26 @@ const AllCards: React.FC<{ cliSelection: any }> = ({ cliSelection }) => {
   };
 
   useEffect(() => {
-    if( cliSelection.text.length > 2 ){
+    if( cliSelection.text.length > 2 )
       searchItems( cliSelection.text , cliSelection.filters , 0 );
-    };
   }, [cliSelection.text]);
 
   const searchNext= async ({ target }:{ target: any }) => {
-    //console.log('scroll enter zone' , scroll.pos )
     const accum= items.length >= 3 && ( items[0].length + items[1].length + items[2].length );
     if( accum >= 20 ){
       searchItems( cliSelection.text , cliSelection.filters , scroll.pos + 1 );
     }
     (target as HTMLIonInfiniteScrollElement).complete();
     return null;
+  };
+
+  const handleUpdate= (operation:any, info: any)=>{
+    let newList:any = [ ...items ];
+    if( operation === "change" )
+      newList= newList.map( ( column: [] ) => column.map( ( el : any ) => el._id === info.id ? info : el ));
+    else if( operation === "remove" )
+      newList= newList.map( ( column: [] ) => column.filter( ( el : any ) => el._id !== info ));
+    setItems( newList );
   };
 
   return(
@@ -77,7 +83,7 @@ const AllCards: React.FC<{ cliSelection: any }> = ({ cliSelection }) => {
           <IonGrid>
             <IonRow className="ion-no-margin">
               {
-                items.map( (colum:any , ind: any) => <ItemList key= { `item-${ind}` } colum= { colum } ind={ ind } actClick= { openCar } /> )
+                items && items.length > 0 && items.map( (colum:any , ind: any) => <ItemList key= { `item-${ind}` } colum= { colum } ind={ ind } actClick= { openCar } /> )
               }
             </IonRow>
           </IonGrid>
@@ -93,6 +99,7 @@ const AllCards: React.FC<{ cliSelection: any }> = ({ cliSelection }) => {
         isOpen={ isCar.req } 
         actClose= { closeCar } 
         vin= { isCar.data } 
+        actUpdate= { handleUpdate }
       />
 
       <IonLoading 

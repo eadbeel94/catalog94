@@ -22,7 +22,3 @@ router.get('/getAll', async (req,res)=>{
 });
 
 module.exports = router;
-
-(async()=>{
-
-})();

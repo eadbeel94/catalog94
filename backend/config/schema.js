@@ -12,16 +12,14 @@ const commonschema = new Schema({                           //Creo una tabla de 
   datem: { type: String }, //DATE EDITED
 });
 
-/*
+
 const uchema = new Schema({                           //Creo una tabla de nombre UserSchema
   account: { type: String, required: true },                 //Creo una columna llamada name
   fullname: { type: String },
   password: { type: String, required: true },             //Creo una columna llamada password
-  depts: { type: String, required: true },
   date: { type: String }
 });
-*/
 
 //------------------------------------- Export Schemas -------------------------------------//
 module.exports.Vehicle = model('vehicle',commonschema);
-//module.exports.User = model('users',uchema);
+module.exports.User = model('users',uchema);

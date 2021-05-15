@@ -15,7 +15,7 @@ const genGroup= ( col=0, list="" )=> {
 const ItemList: React.FC<{ colum: any, ind: any, actClick: any }> = ({ colum , ind , actClick }) => {
   
   return (
-    <IonCol sizeXs="12" sizeMd="6" sizeXl="4" className="ion-no-padding">
+    <IonCol sizeXs="12" sizeSm="6" sizeXl="4" className="ion-no-padding">
       <IonList>
         {
           colum.map( (el: any, el2: any)=> <div key={ el.vin }>
