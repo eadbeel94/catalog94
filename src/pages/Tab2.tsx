@@ -1,12 +1,13 @@
+/** @namespace pages/Tab2 */
+
 import { useState , useEffect } from "react";
 
-import { IonContent , IonPage , IonChip , IonIcon , IonLabel , IonButton } from '@ionic/react';
+import { IonContent , IonPage , IonChip , IonIcon , IonLabel , IonButton , IonGrid , IonRow , IonCol } from '@ionic/react';
 
 import { save , personCircleOutline } from 'ionicons/icons';
-//import { cloudCircleOutline , cloudDownload , cloudUpload } from 'ionicons/icons';
 
 import Header from '../components/Header';
-import Login from '../components/Login';
+import ModalLogin from '../components/ModalLogin';
 import AddItem from '../components/AddUser';
 import AddUser from '../components/AddItem';
 import ButtonUD from '../components/ButtonUD';
@@ -16,16 +17,41 @@ import { useShowHide } from '../hooks/main.jsx';
 
 import './Tab2.css';
 
+/**
+ * Component for showing a forms group for add new elements/users
+ * @component
+ * @returns JSX Element that include Tab 2 body
+ */
 const Tab2: React.FC = () => {
 
+  /** 
+   * State variable that check loggin status and name user
+   * @constant user-setUser
+   * @type {useState}  
+   * @memberof pages/Tab2
+   */
   const [user, setUser] = useState({ logged: false, name: "" });
-
+  /** 
+   * State variable that show and hide Modal login component
+   * @constant login-openLogin-closeLogin
+   * @type {useState}  
+   * @memberof pages/Tab2
+   */
   const [ login, openLogin, closeLogin ]: any= useShowHide({ req: false });
 
+  /**
+   * First time to open Tab2, then show login modal
+   * @callback useEffect->openLogin
+   * @memberof pages/Tab2
+   */
   useEffect(() => {
     !user.logged && openLogin();
   },[])
-
+  /**
+   * If user press logout button, then hide and show group of components
+   * @function logout
+   * @memberof pages/Tab2
+   */
   const logout= ()=>{
     setUser({ logged: false , name: "" });
     localStorage.removeItem('logged');
@@ -37,7 +63,7 @@ const Tab2: React.FC = () => {
       <Header/>
       <IonContent fullscreen>
 
-        <div style={{textAlign: 'center', marginTop: '0.5rem', color: 'skyblue'}}>
+        <div className="ion-text-center ion-margin-top">
           <IonChip outline color="white">
             <IonIcon icon={personCircleOutline} />
             <IonLabel >{ user.logged ? user.name : 'NOT LOGGED' }</IonLabel>
@@ -52,23 +78,38 @@ const Tab2: React.FC = () => {
                 type="button" 
                 fill='clear' 
                 class='btn-type3' 
-                style={{width: '200px'}} 
                 onClick={ openLogin }
               > 
                 <IonIcon icon={save} /> SIGN IN 
               </IonButton> 
             </div>
           </> : <div className="body-2">
-            <AddItem/>
-            <AddUser/>
-            <ButtonUD/>
+            <IonGrid className="container-tab2">
+              <IonRow>
+                <IonCol sizeXs="12" sizeMd="6" sizeLg="5" offsetLg="1" >
+                  <AddItem/>
+                </IonCol>
+                <IonCol sizeXs="12" sizeMd="6" sizeLg="5" >
+                  <AddUser/>
+                </IonCol>
+                <IonCol sizeXs="12" sizeMd="6" sizeLg="6" offsetMd="3" offsetLg="3" >
+                <ButtonUD/>
+                </IonCol>
+              </IonRow>
+            </IonGrid>
           </div>
         }
 
-        <About/>
+        <IonGrid className="container-tab2">
+          <IonRow>
+            <IonCol className="ion-no-padding" sizeXs="12" sizeMd="6" sizeLg="6" offsetMd="3" offsetLg="3" >
+              <About/>
+            </IonCol>
+          </IonRow>
+        </IonGrid>
 
         {
-          user.logged && <div style={{textAlign: 'center'}}>
+          user.logged && <div className="ion-text-center">
             <IonButton 
               type="button" 
               fill='clear' 
@@ -80,7 +121,11 @@ const Tab2: React.FC = () => {
           </div>
         }
 
-        <Login show={ login } actClose= { closeLogin } actSignIn= { setUser } />
+        <ModalLogin 
+          show={ login } 
+          actClose= { closeLogin } 
+          actSignIn= { setUser } 
+        />
 
       </IonContent>
     </IonPage>

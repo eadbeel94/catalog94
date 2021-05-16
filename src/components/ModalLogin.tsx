@@ -1,18 +1,52 @@
-import { useState } from "react";
+/** @namespace components/login */
 
-import { IonPopover, IonCard , IonCardHeader , IonCardTitle , IonCardSubtitle , IonChip , IonIcon , IonCardContent , IonItem , IonLabel , IonInput , IonButton , IonToast } from '@ionic/react';
+import { 
+  IonPopover, 
+  IonCard, 
+  IonCardHeader, 
+  IonCardTitle, 
+  IonCardSubtitle, 
+  IonChip, 
+  IonIcon, 
+  IonCardContent, 
+  IonItem, 
+  IonLabel, 
+  IonInput, 
+  IonButton, 
+  IonToast 
+} from '@ionic/react';
 
 import { peopleCircleOutline , enterOutline } from 'ionicons/icons';
 
 import { useMessage } from '../hooks/main.jsx';
 import { fetchSend } from '../js/helper.js';
 
+/** 
+ * Common IP for fetch operations
+ * @const {string} IP
+ * @memberof components/login
+ */
 const IP= `http://localhost:3001/api/login`;
 
-const Login: React.FC<{ show: any, actClose: any, actSignIn: any }> = ({ show, actClose, actSignIn }) => {
-  //const [logged, setLogged] = useState(false);
+/**
+ * Component for showing a Modal login
+ * @component
+ * @returns JSX Element that include a form
+ */
+const ModalLogin: React.FC<{ show: any, actClose: any, actSignIn: any }> = ({ show, actClose, actSignIn }) => {
+  /** 
+   * State variable that is used in toast component
+   * @constant isToast-setToast-initToast
+   * @type {useMessage}  
+   * @memberof components/login
+   */
   const [ isToast , setToast , , , initToast ]: any= useMessage({ req: false, mess: "", time: 1000 });
-
+  /**
+   * send user data to backend and process validation
+   * @function saveItem
+   * @param {Event} ev click event button save press into form
+   * @memberof components/login
+   */
   const signing= async (ev: any)=>{
     ev.preventDefault();
     const url= `${ IP }/signIn2`;
@@ -52,7 +86,7 @@ const Login: React.FC<{ show: any, actClose: any, actSignIn: any }> = ({ show, a
               </IonItem>
 
               <IonButton type="submit" color="info" fill='outline' expand='block' > 
-                <IonIcon icon={enterOutline} style={{ paddingRight: '0.5rem' }}/> ENTER 
+                <IonIcon icon={enterOutline} className="ion-padding-end" /> ENTER 
               </IonButton> 
 
             </IonCardContent>
@@ -69,7 +103,7 @@ const Login: React.FC<{ show: any, actClose: any, actSignIn: any }> = ({ show, a
   );
 };
 
-export default Login;
+export default ModalLogin;
 
 
 

@@ -1,21 +1,65 @@
+/** @namespace components/AddItem */
+
 import { useState } from "react";
 
-import { IonCard, IonCardTitle, IonChip, IonIcon, IonLabel, IonCardContent, IonItem , IonInput , IonButton , IonToast } from '@ionic/react';
+import { 
+  IonCard, 
+  IonCardTitle, 
+  IonChip, 
+  IonIcon, 
+  IonLabel, 
+  IonCardContent, 
+  IonItem , 
+  IonInput , 
+  IonButton , 
+  IonToast 
+} from '@ionic/react';
 
 import { save , addCircle } from 'ionicons/icons';
 
 import { useMessage } from '../hooks/main.jsx';
 import { fetchSend } from '../js/helper.js';
-
+/** 
+ * Common IP for fetch operations
+ * @const {string} IP
+ * @memberof components/AddItem
+ */
 const IP= `http://localhost:3001/api/vehicle`;
-
+/** 
+ * Initial state for each input/criterion into form
+ * @const {object} initState
+ * @memberof components/AddItem
+ */
 const initState= { vin: "", name: "", manuf: "" , model: "" , type: "" , fuel: "" , color: "" };
+
+/**
+ * Component for showing a Form with fields for create a new element.
+ * @component
+ * @returns JSX Element that include a form
+ */
 const AddItem: React.FC = () => {
 
-  const [ itemForm , setItemForm ] = useState(initState);
+  /** 
+   * State variable that include each input value into form
+   * @constant itemForm-setItemForm
+   * @type {useState}  
+   * @memberof components/AddItem
+   */
+  const [ itemForm , setItemForm ]:any = useState(initState);
+  /** 
+   * State variable that is used in toast component
+   * @constant isToast-setToast-initToast
+   * @type {useMessage}  
+   * @memberof components/AddItem
+   */
   const [ isToast , setToast , , , initToast ]: any= useMessage({ req: false, mess: "", time: 1000 });
-
-  const aaveItem= async (ev: any)=>{
+  /**
+   * send request to save element into backend
+   * @function saveItem
+   * @param {Event} ev click event button save press into form
+   * @memberof components/AddItem
+   */
+  const saveItem= async (ev: any)=>{
     ev.preventDefault();
     const url= `${IP}/addOne`;
     const { stat , mess }= await fetchSend( url, "POST" , itemForm );
@@ -24,14 +68,19 @@ const AddItem: React.FC = () => {
     stat && setToast('Vehicle created successfully');
     stat && setItemForm(initState);
   };
-
+  /**
+   * for each change into a input, this value will save into state variable
+   * @function handleChange
+   * @param {Event} ev user modify any input event
+   * @memberof components/AddItem
+   */
   const handleChange= ({ target }:{ target: any })=>{
     setItemForm({ ...itemForm , [target.name]: target.value });
   };
 
   return (
     <>
-      <form onSubmit={ aaveItem } >
+      <form onSubmit={ saveItem } >
         <IonCard>
           <IonCardTitle>
             <IonChip color="transparent">
@@ -48,7 +97,7 @@ const AddItem: React.FC = () => {
                 required 
                 placeholder="87H79WDZ5CH130241" 
                 value={ itemForm.vin } 
-                onKeyDown={ handleChange } 
+                onKeyUp={ handleChange } 
               />
             </IonItem>
             <IonItem >
@@ -59,7 +108,7 @@ const AddItem: React.FC = () => {
                 required 
                 placeholder="Fiat Land Cruiser" 
                 value={ itemForm.name } 
-                onKeyDown={ handleChange } 
+                onKeyUp={ handleChange } 
               />
             </IonItem>
             <IonItem >
@@ -70,7 +119,7 @@ const AddItem: React.FC = () => {
                 required 
                 placeholder="Tesla" 
                 value={ itemForm.manuf } 
-                onKeyDown={ handleChange } 
+                onKeyUp={ handleChange } 
               />
             </IonItem>
             <IonItem >
@@ -81,7 +130,7 @@ const AddItem: React.FC = () => {
                 required 
                 placeholder="Camaro" 
                 value={ itemForm.model } 
-                onKeyDown={ handleChange } 
+                onKeyUp={ handleChange } 
               />
             </IonItem>
             <IonItem >
@@ -91,7 +140,7 @@ const AddItem: React.FC = () => {
                 type='text' 
                 placeholder="Passenger Van" 
                 value={ itemForm.type } 
-                onKeyDown={ handleChange } 
+                onKeyUp={ handleChange } 
               />
             </IonItem>
             <IonItem >
@@ -102,7 +151,7 @@ const AddItem: React.FC = () => {
                 required 
                 placeholder="Diesel" 
                 value={ itemForm.fuel } 
-                onKeyDown={ handleChange } 
+                onKeyUp={ handleChange } 
               />
             </IonItem>
             <IonItem >
@@ -112,11 +161,11 @@ const AddItem: React.FC = () => {
                 type='text' 
                 placeholder="azure" 
                 value={ itemForm.color } 
-                onKeyDown={ handleChange } 
+                onKeyUp={ handleChange } 
               />
             </IonItem>
 
-            <IonButton type="submit" fill="clear" class={'btn-outline-type1'} expand="block" style={{fontFamily: 'poppins1', fontSize: '18px', height: '32px'}}> 
+            <IonButton type="submit" fill="clear" class="btn-outline-typeA" expand="block"> 
               <IonIcon icon={save} /> SAVE 
             </IonButton> 
           </IonCardContent>

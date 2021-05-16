@@ -1,5 +1,21 @@
-import { useState } from 'react';
+/** @namespace hooks */
 
+/**
+ * React hook that allow change state into constructor Function React Component
+ * @function useState
+ * @memberof hooks
+ * @param {any} state include variable state
+ * @param {function} setState include function to change variable state
+ */
+import { useState } from 'react';
+/**
+ * React custom hook that allow change state
+ * @function useShowHide
+ * @memberof hooks
+ * @param {boolean|any} request include variable state
+ * @param {function} actShow include function to change variable state to true
+ * @param {function} actHide include function to change variable state to false
+ */
 export const useShowHide= ({ req }) => {
   const [request, setRequest] = useState(req);
 
@@ -13,7 +29,16 @@ export const useShowHide= ({ req }) => {
     actHide
   ];
 };
-
+/**
+ * React custom hook that allow change state
+ * @function useMessage
+ * @memberof hooks
+ * @param {object} item include variable state
+ * @param {function} setOnlyMess include function to change property message
+ * @param {function} setOnlyTime include function to change property time
+ * @param {function} setAll include function to change three properties request, message and time
+ * @param {function} initMessage include function to change three properties to init state
+ */
 export const useMessage= ({ req= false , mess= "" , time= 1000 }) => {
 
   const [ item, setItem ]= useState({ req , mess , time });
@@ -34,7 +59,14 @@ export const useMessage= ({ req= false , mess= "" , time= 1000 }) => {
     initMessage
   ];
 };
-
+/**
+ * React custom hook that allow change state
+ * @function useItem
+ * @memberof hooks
+ * @param {object} item include variable state
+ * @param {function} setData include function to change property data
+ * @param {function} initData include function to change init state
+ */
 export const useItem= ({ req= false, data }) => {
   const [ item, setItem ]= useState({ req , data });
 
@@ -48,7 +80,16 @@ export const useItem= ({ req= false, data }) => {
     initData
   ];
 };
-
+/**
+ * React custom hook that allow change state
+ * @function useAlert
+ * @memberof hooks
+ * @param {object} item include variable state
+ * @param {function} setData include function to change all properties, request, message and callback
+ * @param {function} setMess include function to change property message
+ * @param {function} setCB include function to change property callback
+ * @param {function} initData include function to change three properties to init state
+ */
 export const useAlert= ({ req= false, mess="", cb=()=>{} }) =>{
   const [ item, setItem ]= useState({ req , mess, cb });
 
@@ -69,64 +110,9 @@ export const useAlert= ({ req= false, mess="", cb=()=>{} }) =>{
   ];
 };
 
-//export useShowHide;
-
-/*
-const useShowHide:FunctionComponent<{ initial?: number }> = ({ initial = 0 }) => {
-  const [request, setRequest] = useState(initial);
-
-  const actShow= ()=> setRequest(0);
-
-  const actHide= ()=> setRequest(0);
-
-  const actCancel=  ( cb: Function ) => cb();
-
-  const actConfirm= ( cb: Function , data: any ) => cb();
-   
-  return [
-    request,
-    actShow,
-    actHide,
-    actConfirm,
-    actCancel
-  ];
-};
-
-export default useShowHide;
-*/
-
-/*
-import React, { FunctionComponent, useState } from 'react';
-
-// our components props accept a number for the initial value
-const Counter:FunctionComponent<{ initial?: number }> = ({ initial = 0 }) => {
-  // since we pass a number here, clicks is going to be a number.
-  // setClicks is a function that accepts either a number or a function returning
-  // a number
-  const [clicks, setClicks] = useState(initial);
-  return <>
-    <p>Clicks: {clicks}</p>
-    <button onClick={() => setClicks(clicks+1)}>+</button>
-    <button onClick={() => setClicks(clicks-1)}>-</button>
-  </>
-};
-
-
-export default Counter;
-
-
-/*
-const Counter:FunctionComponent<{ initial?: number }> = ({ initial = 0 }) => {
-  // since we pass a number here, clicks is going to be a number.
-  // setClicks is a function that accepts either a number or a function returning
-  // a number
-  const [clicks, setClicks] = useState(initial);
-  return <>
-    <p>Clicks: {clicks}</p>
-    <button onClick={() => setClicks(clicks+1)}>+</button>
-    <button onClick={() => setClicks(clicks-1)}>-</button>
-  </>
-};
-
-export default Counter;
-*/
+/**
+ * @typedef useState React hook that allow change state into constructor Function React Component
+ * @property {any} state  include variable state
+ * @property {function} setState include function to change variable state
+ * @memberof hooks
+ */

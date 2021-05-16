@@ -32,6 +32,11 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
+/**
+ * Component for showing Main Body
+ * @component
+ * @returns JSX Element that include Tab 1 and Tab2 body
+ */
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>

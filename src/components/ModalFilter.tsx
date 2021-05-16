@@ -1,25 +1,63 @@
+/** @namespace components/ModalFilter */
+
 import { useState } from 'react';
 
-import { IonModal , IonList , IonItem , IonLabel , IonSelect , IonSelectOption , IonButton } from '@ionic/react';
-
+import { 
+  IonModal, 
+  IonList, 
+  IonItem, 
+  IonLabel, 
+  IonSelect, 
+  IonSelectOption, 
+  IonButton 
+} from '@ionic/react';
+/** 
+ * Initial state for each input/criterion into form
+ * @const {object} initState
+ * @memberof components/ModalFilter
+ */
 const initState= { color: "" , fuel: "" , manuf: "" , types: "" };
 
+/**
+ * Component for showing a Form with fields for create a new element.
+ * @component
+ * @returns JSX Element that include a form
+ */
 const ModalFilter: React.FC<{ isOpen: boolean , types: any , actClose: any , actSelect: any }> = (props) => {
   const { isOpen, types , actClose , actSelect }= props;
+  
+  /** 
+   * State variable that include each "select" value into form
+   * @constant selected-setSelected
+   * @type {useState}  
+   * @memberof components/ModalFilter
+   */
   const [ selected , setSelected ] = useState(initState);
-
+  /**
+   * for each change into a select, this value will save into state variable
+   * @function handleChange
+   * @param {Event} ev user modify any select event
+   * @memberof components/ModalFilter
+   */
   const handlerChanges= ({target}:{ target: any })=> {
     setSelected({ ...selected , [target.name]: target.value })
   };
-
+  /**
+   * Initialice all state variables
+   * @function handleReset
+   * @memberof components/ModalFilter
+   */
   const handleReset= ()=> {
     setSelected(initState);
-  }
-
+  };
+  /**
+   * Execute parent funtion and close Modal
+   * @function handleReset
+   * @memberof components/ModalFilter
+   */
   const handleClose= ()=>{
     actSelect(selected);
     actClose();
-    //setSelected(initState);
   };
 
   return (
@@ -71,19 +109,3 @@ const ModalFilter: React.FC<{ isOpen: boolean , types: any , actClose: any , act
 };
 
 export default ModalFilter;
-
-/*
-      <IonList>
-        {
-          Object.entries(list).map( (type:any) => <IonItem key={ `type-${type[0]}` }>
-              <IonLabel>{ type[0] }</IonLabel>
-              <IonSelect name={ type[0] } placeholder="Select One" onIonChange= { handlerChanges } >
-                {
-                  type[1] && type[1].length && type[1].map( (el: any, ind: any)=> <IonSelectOption key={ `select-${ind}` } value={ el }> { el } </IonSelectOption> )
-                }
-              </IonSelect>
-            </IonItem>
-          )
-        }
-      </IonList>
-*/

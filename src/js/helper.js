@@ -1,3 +1,12 @@
+/** @namespace js/helper */
+
+/**
+ * Create a messase based on error object
+ * @function
+ * @memberof js/helper
+ * @param {Error} error Object type error 
+ * @returns {string} code error
+ */
 const getError= ( error ) => {
   let message= "Error: ";
   if( typeof error === 'object' && error !== null ){
@@ -5,7 +14,15 @@ const getError= ( error ) => {
   }else message+= String(error);
   return message;
 };
-
+/**
+ * Send command fetch and process response information
+ * @function
+ * @memberof js/helper
+ * @param {string} url endpoint address 
+ * @param {string} type can use "GET", "POST" , "PUT" or "DELETE"
+ * @param {object|any} send information group send to backend
+ * @returns {{ stat , data , mess }} response status, information returned and message error if exist it
+ */
 const fetchSend= async( url="" , type="" , send )=>{
 
   let stat= false;
@@ -36,17 +53,14 @@ const fetchSend= async( url="" , type="" , send )=>{
 
   return { stat , data , mess };
 };
-
-const porcentual= ( dayM , createD, targetD ) =>{
-  const alltime = dayM(targetD).diff( dayM(createD) );
-  const curtime = dayM(targetD).diff( dayM() );
-  
-  let value= 0;
-  if( curtime/alltime >= 1 || 0 >= curtime/alltime ) value= 100;
-  else if( 1 > curtime/alltime )  value= (100 - curtime/alltime * 100);
-  return value
-};
-
+/**
+ * Create three rows based on first row
+ * @function
+ * @memberof js/helper
+ * @param {Array<object>} oldList First array with group information
+ * @param {number} columns quantity to split the first array
+ * @returns { Array } Return an array that incle n arrays
+ */
 const splitRows= ( oldList=[] , columns=3 )=>{
   const orgList= [...oldList];
   const maxCol= oldList.length / 3;
@@ -57,5 +71,22 @@ const splitRows= ( oldList=[] , columns=3 )=>{
 
   return newList;
 };
+/**
+ * Create a string base on column name and code list value
+ * @function
+ * @memberof js/helper
+ * @param {number} col column number
+ * @param {string} list position list value
+ * @returns {string} new name column
+ */
+const genGroup= ( col=0, list="" )=> {
+  let newcol;
+  switch (col) {
+    case 1:   newcol= "B"; break;
+    case 2:   newcol= "C"; break;
+    default:  newcol= "A"; break;
+  }
+  return `${newcol}${list} ->`;
+};
 
-module.exports= { getError , fetchSend , porcentual , splitRows }
+module.exports= { getError , fetchSend , splitRows , genGroup };

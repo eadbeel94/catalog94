@@ -28,3 +28,6 @@ yarn-error.log*
 .eslintcache
 
 other/
+src/theme/fonts/
+src/theme/img/
+public/doc

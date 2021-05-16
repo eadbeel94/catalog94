@@ -7,6 +7,7 @@
 .containerCard ion-searchbar{
   max-width: 500px;
   margin: auto;
+  padding: 0.25rem;
 }
 
 @media (min-width: 576px) {
@@ -202,4 +203,10 @@
 
 .modal-item-body ion-button::part(native){
   border-radius: 0;
+}
+
+/* ------------------------------- Button filter ------------------------------- */
+
+#root ion-fab-button ion-icon{
+  font-size: 40px;
 }

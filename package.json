@@ -43,7 +43,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "serve": "nodemon ./backend/index.js --watch ./backend"
+    "serve": "nodemon ./backend/index.js --watch ./backend",
+    "serve2": "ionic serve",
+    "docs": "jsdoc -c jsdoc.json"
   },
   "eslintConfig": {
     "extends": [
@@ -66,9 +68,13 @@
   "devDependencies": {
     "@capacitor/cli": "2.4.7",
     "bcrypt": "^5.0.1",
+    "better-docs": "^2.3.2",
     "cors": "^2.8.5",
+    "docdash": "^1.2.0",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
+    "html-webpack-plugin": "^5.3.1",
+    "jsdoc": "^3.6.7",
     "mongoose": "^5.12.8",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0"

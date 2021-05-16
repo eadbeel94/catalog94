@@ -1,32 +1,46 @@
-import { IonCard, IonCardTitle, IonChip, IonIcon, IonLabel , IonCardContent, IonImg } from '@ionic/react';
+import { 
+  IonCard, 
+  IonCardTitle, 
+  IonChip, 
+  IonIcon, 
+  IonLabel, 
+  IonCardContent, 
+  IonImg 
+} from '@ionic/react';
 
 import { informationCircleOutline } from 'ionicons/icons';
 
+import logo1 from '../theme/img/logo1.png';
+
+/**
+ * Component for showing details about page.
+ * @component
+ * @returns JSX Element that include a Ion Card
+ */
 const About: React.FC = () => {
   return (
-    <IonCard style={{padding: '1rem'}}>
+    <IonCard id="sec_about" className="ion-padding-top">
       <IonCardTitle>
-        <IonChip outline color='white' style={{color: 'skyblue'}}>
+        <IonChip outline color='white'>
           <IonIcon icon={informationCircleOutline} />
           <IonLabel >ABOUT</IonLabel>
         </IonChip>
       </IonCardTitle>
-      <IonCardContent style={{textAlign:"center", fontFamily: 'poppins1', fontSize: '15px'}}>
-        GM CATALOG IS A MOBILE APP THAT CAN SHOW ALL ELEMENTS INTO SAP'S LIST WHIT FEATURES VERY EASY OF USE, ALL THESE FROM YOUR PHONE.
-        <br/>
-        <IonChip style={{height: '50px', borderRadius: '0', backgroundColor: 'transparent'}}>
-          { /**<IonImg src={brand} style={{width: '250px'}}/> */ }
-        </IonChip>
+      <IonCardContent className="ion-text-center">
+        CATALOG 94 IS A MOBILE APP THAT CAN SHOW ALL ELEMENTS INTO LIST WHIT FEATURES VERY EASY OF USE, ALL THESE FROM YOUR PHONE.
       </IonCardContent>
-      <IonCardContent style={{textAlign:"center"}}>
-        THIS APP WAS CREATED FOR WEB FULL STACK DEVELOPER <strong>ADBEEL ESTRADA</strong>, BMB TEAM MEMBER
+      <IonCardContent className="ion-text-center">
+        THIS APP WAS CREATED FOR WEB FULL STACK DEVELOPER <strong>ADBEEL ESTRADA</strong>
         <br/>
-        <IonChip style={{height: '100px', borderRadius: '0' , backgroundColor: 'transparent'}}>
-          {  /**<IonImg src={own} style={{width: '100px'}}/> */}
+        <IonChip>
+          <IonImg src={logo1}/>
         </IonChip>
         <br/>
-        <span style={{fontSize: '12px', fontFamily: 'righte1'}}>
-          GM-CATALOG COPYRIGHT© 2021 
+        <p>
+          SEE DOCUMENTATION, ENTER THIS LINK <a href="/doc/index.html">DOCUMENTATION</a>
+        </p>
+        <span>
+          CATALOG-94 COPYRIGHT© 2021 
           <br/>
           ALL RIGHTS RESERVED DESIGNED BY EADBEEL94
         </span>

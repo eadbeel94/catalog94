@@ -2,18 +2,14 @@ import { IonCol, IonList, IonItem , IonLabel , IonIcon } from '@ionic/react';
 
 import { caretForward } from 'ionicons/icons';
 
-const genGroup= ( col=0, list="" )=> {
-  let newcol;
-  switch (col) {
-    case 1:   newcol= "B"; break;
-    case 2:   newcol= "C"; break;
-    default:  newcol= "A"; break;
-  }
-  return `${newcol}${list} ->`;
-};
+import { genGroup } from '../js/helper.js';
 
+/**
+ * Component for showing a list with elements group.
+ * @component
+ * @returns JSX Element that include a Ion Card
+ */
 const ItemList: React.FC<{ colum: any, ind: any, actClick: any }> = ({ colum , ind , actClick }) => {
-  
   return (
     <IonCol sizeXs="12" sizeSm="6" sizeXl="4" className="ion-no-padding">
       <IonList>

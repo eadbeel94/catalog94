@@ -2,23 +2,34 @@ import { IonChip, IonLabel, IonButton, IonIcon } from '@ionic/react';
 
 import { cloudCircleOutline , cloudDownload , cloudUpload } from 'ionicons/icons';
 
+/**
+ * Component for showing two buttons.
+ * @component
+ * @returns JSX Element that include a Idiv with to buttons (donwload and upload database options)
+ */
 const ButtonUD: React.FC = () => {
   return (
-    <div style={{textAlign: 'center', marginTop: '0.5rem',  marginBottom: '1rem', color: 'skyblue' }}>
+    <div className="container-tab2 button-group-UD">
       <IonChip outline color="white">
         <IonIcon icon={cloudCircleOutline} />
         <IonLabel >UP/DOWN DATABASE</IonLabel>
       </IonChip>
       <br />
-      <IonButton type="button" fill='outline' color="secondary"
-                  style={{width: '45%', fontFamily: 'righte1'}} 
-                  onClick={ ()=> {} }> 
-        <IonIcon icon={cloudDownload} style={{ paddingRight: '0.25rem' }}/> DOWNLOAD
+      <IonButton 
+        type="button" 
+        fill='outline' 
+        color="secondary"
+        onClick={ ()=> {} }
+      > 
+        <IonIcon icon={cloudDownload} className="ion-padding-end" /> DOWNLOAD
       </IonButton> 
-      <IonButton type="button" fill='outline' color="success"
-                  style={{width: '45%', fontFamily: 'righte1'}} 
-                  onClick={ ()=> {} }> 
-        <IonIcon icon={ cloudUpload} style={{ paddingRight: '0.25rem' }}/> UPLOAD 
+      <IonButton 
+        type="button" 
+        fill='outline' 
+        color="success"
+        onClick={ ()=> {} }
+      > 
+        <IonIcon icon={ cloudUpload} className="ion-padding-end" /> UPLOAD 
       </IonButton> 
     </div>
   );
