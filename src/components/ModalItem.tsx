@@ -84,7 +84,7 @@ const ModalItem: React.FC<{ isOpen: boolean , actClose: any , vin: string , actU
    */
   const getOne= async ()=>{
     setLoading(true)
-    const url= `${ IP }/getOne?vin=${ vin }`;
+    const url= `${ IP }/getOne/${ vin }`;
     const { data }: any= await fetchSend(url , undefined, undefined);
     setCar( data );
     setLogged( Boolean(localStorage.getItem('username')) );
@@ -127,7 +127,7 @@ const ModalItem: React.FC<{ isOpen: boolean , actClose: any , vin: string , actU
     ev.preventDefault();
     setAlert( "Do you wanna save these changes?" , async ()=>{
       setLoading(true);
-      const url= `${ IP }/editOne?id=${ car._id }`;
+      const url= `${ IP }/editOne/${ car._id }`;
       const { stat, mess }: any= await fetchSend( url , 'PUT' , car );
 
       !stat && setToast(mess);
@@ -157,7 +157,7 @@ const ModalItem: React.FC<{ isOpen: boolean , actClose: any , vin: string , actU
     setAlert( "Do you wanna delete this element?" , async ()=>{
 
       setLoading(true);
-      const url= `${ IP }/deleteOne?id=${ car._id }`;
+      const url= `${ IP }/deleteOne/${ car._id }`;
       const { stat, mess }: any= await fetchSend( url , 'DELETE' , undefined );
 
       !stat && setToast(mess);

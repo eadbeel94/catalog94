@@ -8,7 +8,7 @@
  * @returns {string} code error
  */
 const getError= ( error ) => {
-  let message= "Error: ";
+  let message= "";
   if( typeof error === 'object' && error !== null ){
     message+= error.hasOwnProperty('message') ? error.message : JSON.stringify( error );
   }else message+= String(error);
@@ -30,25 +30,22 @@ const fetchSend= async( url="" , type="" , send )=>{
   let mess= "";
   try {
     const config= { method: type || "GET" };
-    data && ( config.body= JSON.stringify(send) );
-    data && ( config.headers= { 'Content-Type': 'application/json'  }  );
+    config.headers= { 'X-Requested-With': 'XMLHttpRequest' };
+    send && ( config.body= JSON.stringify(send) );
+    send && ( config.headers= { ...config.headers , 'Content-Type': 'application/json'  }  );
 
     const res= await fetch( url, config );
     const json= await res.json();
 
-    if( !res.ok )       throw { status: res.status ,  message: `${ res.statusText }`  };
-    if( !json.status )  throw { status: json.status , message: `${ json.mess }`       };
+    if( !res.ok ) throw { status: res.status ,  message: `${ json.stack ? json.stack.split('\n')[0] : json.error }`  };
+    //if( !json.status )  throw { status: json.status , message: `${ json.mess }`       };
 
-    stat= json.status;
     data= json.data;
     mess= json.mess;
-
+    stat= true;
   } catch (err) { 
-
     stat= false; 
-    data= {};
     mess= getError(err);
-    
   };
 
   return { stat , data , mess };

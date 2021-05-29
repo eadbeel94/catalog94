@@ -31,3 +31,5 @@ other/
 src/theme/fonts/
 src/theme/img/
 public/doc
+.env
+backend2/

@@ -65,6 +65,7 @@ const Tab1: React.FC = () => {
   const getTypes= async ()=>{
     const url= `${ IP }/getAll`;
     const { stat , data , mess }:any = await fetchSend(url,undefined,undefined);
+    //console.log( 68 , stat , data , mess )
     !stat && setToast(mess)
     stat && setTypes(data);
   };

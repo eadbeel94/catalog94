@@ -67,6 +67,7 @@
   },
   "devDependencies": {
     "@capacitor/cli": "2.4.7",
+    "@hapi/boom": "^9.1.2",
     "bcrypt": "^5.0.1",
     "better-docs": "^2.3.2",
     "cors": "^2.8.5",
@@ -74,6 +75,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "html-webpack-plugin": "^5.3.1",
+    "joi": "^17.4.0",
     "jsdoc": "^3.6.7",
     "mongoose": "^5.12.8",
     "passport": "^0.4.1",

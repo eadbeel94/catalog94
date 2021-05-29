@@ -24,13 +24,13 @@ import { fetchSend } from '../js/helper.js';
  * @const {string} IP
  * @memberof components/AddItem
  */
-const IP= `http://localhost:3001/api/login`;
+const IP= `http://localhost:3001/api/users`;
 /** 
  * Initial state for each input/criterion into add user form
  * @const {object} initState
  * @memberof components/AddUser
  */
-const initState= { account: "", fullname: "", pass: "" , rpass: "" };
+const initState= { account: "", fullname: "", password: "" , confirm: "" };
 
 /**
  * Component for showing a Form with fields for create a new user.
@@ -52,7 +52,7 @@ const AddUser: React.FC = () => {
    * @type {useMessage}  
    * @memberof components/AddUser
    */
-  const [ isToast , setToast , , , initToast ]: any= useMessage({ req: false, mess: "", time: 1000 });
+  const [ isToast , setToast , , , initToast ]: any= useMessage({ req: false, mess: "", time: 3000 });
   /**
    * send request to save user into backend
    * @function saveUser
@@ -61,16 +61,16 @@ const AddUser: React.FC = () => {
    */
   const saveUser= async (ev: any)=>{
     ev.preventDefault();
-    const url= `${IP}/addUser`;
+    const url= `${IP}/addOne`;
     const { stat , mess }= await fetchSend( url, "POST" , userForm );
 
     if( !stat ){
       setToast(mess);
-      setUserForm({ ...userForm , pass: "" , rpass: "" })
+      setUserForm({ ...userForm , password: "" , confirm: "" })
     }else{
       setToast('User created successfully');
       setUserForm(initState);
-    } 
+    };
   };
   /**
    * for each change into a input, this value will save into state variable
@@ -101,7 +101,7 @@ const AddUser: React.FC = () => {
                 type='text' 
                 placeholder="SUPERVISOR" 
                 value= { userForm.account } 
-                onKeyDown={ handleChange } 
+                onKeyUp={ handleChange } 
               />
             </IonItem>
             <IonItem >
@@ -111,29 +111,29 @@ const AddUser: React.FC = () => {
                 type='text' 
                 placeholder="LIC. VALERIANO II" 
                 value= { userForm.fullname } 
-                onKeyDown={ handleChange } 
+                onKeyUp={ handleChange } 
               />
             </IonItem>
             <IonItem >
               <IonLabel >PASS:</IonLabel>
               <IonInput 
-                name="pass" 
+                name="password" 
                 type="password" 
                 required 
                 placeholder="SECRET" 
-                value= { userForm.pass } 
-                onKeyDown={ handleChange } 
+                value= { userForm.password } 
+                onKeyUp={ handleChange } 
               />
             </IonItem>
             <IonItem >
               <IonLabel >R-PASS:</IonLabel>
               <IonInput 
-                name="rpass" 
+                name="confirm" 
                 type="password" 
                 required 
                 placeholder="SECRET" 
-                value= { userForm.rpass } 
-                onKeyDown={ handleChange } 
+                value= { userForm.confirm } 
+                onKeyUp={ handleChange } 
               />
             </IonItem>
 

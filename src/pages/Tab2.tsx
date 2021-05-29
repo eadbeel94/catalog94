@@ -2,7 +2,19 @@
 
 import { useState , useEffect } from "react";
 
-import { IonContent , IonPage , IonChip , IonIcon , IonLabel , IonButton , IonGrid , IonRow , IonCol } from '@ionic/react';
+import { 
+  IonContent, 
+  IonPage, 
+  IonChip, 
+  IonIcon, 
+  IonLabel, 
+  IonButton, 
+  IonGrid, 
+  IonRow, 
+  IonCol, 
+  IonAlert,
+  IonToast
+} from '@ionic/react';
 
 import { save , personCircleOutline } from 'ionicons/icons';
 
@@ -13,7 +25,8 @@ import AddUser from '../components/AddItem';
 import ButtonUD from '../components/ButtonUD';
 import About from '../components/About';
 
-import { useShowHide } from '../hooks/main.jsx';
+import { useShowHide , useAlert , useMessage } from '../hooks/main.jsx';
+import { fetchSend } from '../js/helper.js';
 
 import './Tab2.css';
 
@@ -38,6 +51,20 @@ const Tab2: React.FC = () => {
    * @memberof pages/Tab2
    */
   const [ login, openLogin, closeLogin ]: any= useShowHide({ req: false });
+  /** 
+   * State variable that is used in alert component
+   * @constant isToast-setToast-initToast
+   * @type {useMessage}  
+   * @memberof components/ModalItem
+   */
+   const [ alert , setAlert ,  ,  ,  initAlert ]:any= useAlert({ req: false , mess: "" , cb: ()=>{} });
+  /** 
+   * State variable that is used in toast component
+   * @constant isToast-setToast-initToast
+   * @type {useMessage}  
+   * @memberof components/ModalItem
+   */
+   const [ isToast , setToast , , , initToast ]: any= useMessage({ req: false, mess: "", time: 1000 });
 
   /**
    * First time to open Tab2, then show login modal
@@ -46,17 +73,26 @@ const Tab2: React.FC = () => {
    */
   useEffect(() => {
     !user.logged && openLogin();
-  },[])
+  },[]);
   /**
    * If user press logout button, then hide and show group of components
    * @function logout
    * @memberof pages/Tab2
    */
   const logout= ()=>{
-    setUser({ logged: false , name: "" });
-    localStorage.removeItem('logged');
-    localStorage.removeItem('username');
-  }
+    setAlert( "Do you wanna close this session?" , async ()=>{
+      console.log('close end');
+      const url= `http://localhost:3001/api/users/logout`;
+      const { stat , mess }= await fetchSend( url , undefined , undefined );
+
+      setToast(mess);
+      if(stat){
+        setUser({ logged: false , name: "" });
+        localStorage.removeItem('logged');
+        localStorage.removeItem('username');
+      };
+    });
+  };
 
   return (
     <IonPage>
@@ -125,6 +161,27 @@ const Tab2: React.FC = () => {
           show={ login } 
           actClose= { closeLogin } 
           actSignIn= { setUser } 
+        />
+
+        <IonAlert 
+          isOpen={ alert.req } 
+          header={'CATALOG M'} 
+          onDidDismiss={ initAlert }
+          message= { alert.mess }
+          buttons={[
+            {
+              text: 'CANCEL', role: 'cancel'
+            },{
+              text: 'CONFIRM', handler: alert.cb
+            }
+          ]}
+        />
+
+        <IonToast
+          isOpen= { isToast.req }
+          message= { isToast.mess }
+          duration= { isToast.time }
+          onDidDismiss= { initToast }
         />
 
       </IonContent>

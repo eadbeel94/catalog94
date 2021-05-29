@@ -26,7 +26,7 @@ import { fetchSend } from '../js/helper.js';
  * @const {string} IP
  * @memberof components/login
  */
-const IP= `http://localhost:3001/api/login`;
+const IP= `http://localhost:3001/api/users`;
 
 /**
  * Component for showing a Modal login
@@ -49,7 +49,7 @@ const ModalLogin: React.FC<{ show: any, actClose: any, actSignIn: any }> = ({ sh
    */
   const signing= async (ev: any)=>{
     ev.preventDefault();
-    const url= `${ IP }/signIn2`;
+    const url= `${ IP }/auth`;
     const send= { username: String(ev.target[0].value).toUpperCase() , password: ev.target[1].value };
     const { stat , data , mess }= await fetchSend( url , "POST" , send );
 
