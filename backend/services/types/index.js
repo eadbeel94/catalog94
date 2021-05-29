@@ -11,10 +11,9 @@ const store= new StoreVehicle();
 
 module.exports= {
   /**
-   * Check if password is correct, then encrypt password and save into database
-   * @function addOneElement
+   * Get all vehicle's types
+   * @function getAllElemets
    * @memberof service/type
-   * @param {object} cont include all user data information
    */
   getAllElemets: async () => await store.getAll(),
 };

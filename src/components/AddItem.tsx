@@ -19,12 +19,7 @@ import { save , addCircle } from 'ionicons/icons';
 
 import { useMessage } from '../hooks/main.jsx';
 import { fetchSend } from '../js/helper.js';
-/** 
- * Common IP for fetch operations
- * @const {string} IP
- * @memberof components/AddItem
- */
-const IP= `http://localhost:3001/api/vehicle`;
+
 /** 
  * Initial state for each input/criterion into form
  * @const {object} initState
@@ -37,7 +32,7 @@ const initState= { vin: "", name: "", manuf: "" , model: "" , type: "" , fuel: "
  * @component
  * @returns JSX Element that include a form
  */
-const AddItem: React.FC = () => {
+const AddItem: React.FC<{ actNotAuth: any }>  = ({ actNotAuth }) => {
 
   /** 
    * State variable that include each input value into form
@@ -52,7 +47,7 @@ const AddItem: React.FC = () => {
    * @type {useMessage}  
    * @memberof components/AddItem
    */
-  const [ isToast , setToast , , , initToast ]: any= useMessage({ req: false, mess: "", time: 1000 });
+  const [ isToast , setToast , , , initToast ]: any= useMessage({ req: false, mess: "", time: 3500 });
   /**
    * send request to save element into backend
    * @function saveItem
@@ -61,9 +56,10 @@ const AddItem: React.FC = () => {
    */
   const saveItem= async (ev: any)=>{
     ev.preventDefault();
-    const url= `${IP}/addOne`;
-    const { stat , mess }= await fetchSend( url, "POST" , itemForm );
+    const url= `/vehicle/addOne`;
+    const { stat , mess , noauth }= await fetchSend( url, "POST" , itemForm );
 
+    noauth && actNotAuth(mess);
     !stat && setToast(mess);
     stat && setToast('Vehicle created successfully');
     stat && setItemForm(initState);

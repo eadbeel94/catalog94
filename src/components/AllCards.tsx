@@ -17,13 +17,6 @@ import ItemList from '../components/ItemList';
 import { useItem , useShowHide , useMessage } from '../hooks/main.jsx';
 import { fetchSend , splitRows } from '../js/helper.js';
 
-/** 
- * Common IP for fetch operations
- * @const {string} IP
- * @memberof components/AllCards
- */
-const IP= `http://localhost:3001/api/vehicle`;
-
 /**
  * Component for showing all result in three diferrents IonList
  * @component
@@ -65,7 +58,7 @@ const AllCards: React.FC<{ cliSelection: any }> = ({ cliSelection }) => {
    * @type {useState}  
    * @memberof components/AllCards
    */
-  const [ isToast , setToast , , , initToast ]: any= useMessage({ req: false, mess: "", time: 1000 });
+  const [ isToast , setToast , , , initToast ]: any= useMessage({ req: false, mess: "", time: 3000 });
   /**
    * send request to search element into backend
    * @function searchItems
@@ -77,12 +70,12 @@ const AllCards: React.FC<{ cliSelection: any }> = ({ cliSelection }) => {
   const searchItems= async( text: string , filters:object= {} , page:number )=>{
     openLoading();
 
-    const url= `${ IP }/search`;
+    const url= `/vehicle/search`;
     const send= { text, filters, page }
     const { stat , data , mess }:any = await fetchSend( url , "POST" , send );
 
+    setToast(mess);
     if(!stat){
-      setToast(mess);
       page === 0 && setItems([[],[],[]]);
       page === 0 && setScroll({ disable: true, pos: 0 });
     }else{

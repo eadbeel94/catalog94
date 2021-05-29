@@ -19,12 +19,7 @@ import { personAdd , save } from 'ionicons/icons';
 
 import { useMessage } from '../hooks/main.jsx';
 import { fetchSend } from '../js/helper.js';
-/** 
- * Common IP for fetch operations
- * @const {string} IP
- * @memberof components/AddItem
- */
-const IP= `http://localhost:3001/api/users`;
+
 /** 
  * Initial state for each input/criterion into add user form
  * @const {object} initState
@@ -37,7 +32,7 @@ const initState= { account: "", fullname: "", password: "" , confirm: "" };
  * @component
  * @returns JSX Element that include a form
  */
-const AddUser: React.FC = () => {
+const AddUser: React.FC<{ actNotAuth: any }>  = ({ actNotAuth }) => {
 
   /** 
    * State variable that include each input value into form
@@ -52,7 +47,7 @@ const AddUser: React.FC = () => {
    * @type {useMessage}  
    * @memberof components/AddUser
    */
-  const [ isToast , setToast , , , initToast ]: any= useMessage({ req: false, mess: "", time: 3000 });
+  const [ isToast , setToast , , , initToast ]: any= useMessage({ req: false, mess: "", time: 3500 });
   /**
    * send request to save user into backend
    * @function saveUser
@@ -61,9 +56,10 @@ const AddUser: React.FC = () => {
    */
   const saveUser= async (ev: any)=>{
     ev.preventDefault();
-    const url= `${IP}/addOne`;
-    const { stat , mess }= await fetchSend( url, "POST" , userForm );
+    const url= `/users/addOne`;
+    const { stat , mess , noauth }= await fetchSend( url, "POST" , userForm );
 
+    noauth && actNotAuth(mess);
     if( !stat ){
       setToast(mess);
       setUserForm({ ...userForm , password: "" , confirm: "" })

@@ -1,6 +1,7 @@
 /** @namespace service/recipe */
 
 const { StoreVehicle }= require('./store.js');
+//const { Types: { ObjectId } } = require('mongoose');
 
 /**
  * Call methods to modify values into collection recipe
@@ -28,14 +29,18 @@ module.exports= {
   searchElements: async ( keyword , filt , page ) => {
     const skip= (Number(page) * 20);
     const filters= { $or: [] };
+    //const objID= new ObjectId(keyword);
+
     filters[`$or`].push({ manuf: { $regex: keyword } });
     filters[`$or`].push({ fuel: { $regex: keyword } });
+    filters[`$or`].push({ vin: { $regex: keyword } });
+    //filters[`$or`].push({ '_id': objID });
 
     if( filt ){
       const found= Boolean(Object.entries( filt ).map( el => el[1].length > 0 ).filter( el=> el )[0]);
       if(found)
         Object.entries( filt ).forEach( el=> el[1].length > 1 && (filters[el[0]]= el[1]) );
-    }
+    };
     return await store.searchSome( filters , skip , 20 );
   },
   /**

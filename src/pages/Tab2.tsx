@@ -13,15 +13,19 @@ import {
   IonRow, 
   IonCol, 
   IonAlert,
-  IonToast
+  IonToast,
+  useIonViewWillLeave,
+  useIonViewWillEnter,
+  useIonViewDidEnter,
+  useIonViewDidLeave
 } from '@ionic/react';
 
 import { save , personCircleOutline } from 'ionicons/icons';
 
 import Header from '../components/Header';
 import ModalLogin from '../components/ModalLogin';
-import AddItem from '../components/AddUser';
-import AddUser from '../components/AddItem';
+import AddUser from '../components/AddUser';
+import AddItem from '../components/AddItem';
 import ButtonUD from '../components/ButtonUD';
 import About from '../components/About';
 
@@ -64,7 +68,19 @@ const Tab2: React.FC = () => {
    * @type {useMessage}  
    * @memberof components/ModalItem
    */
-   const [ isToast , setToast , , , initToast ]: any= useMessage({ req: false, mess: "", time: 1000 });
+   const [ isToast , setToast , , , initToast ]: any= useMessage({ req: false, mess: "", time: 3000 });
+
+  /**
+   * If user 
+   * @function notAuth
+   * @memberof pages/Tab2
+   */
+   const notAuth= ( amessage: string )=>{
+    amessage.length > 1 && setToast(amessage);
+    setUser({ logged: false , name: "" });
+    localStorage.removeItem('logged');
+    localStorage.removeItem('username');
+  }
 
   /**
    * First time to open Tab2, then show login modal
@@ -74,6 +90,14 @@ const Tab2: React.FC = () => {
   useEffect(() => {
     !user.logged && openLogin();
   },[]);
+
+  useIonViewDidEnter(() =>{
+    if(!localStorage.getItem('logged')){
+      openLogin();
+      notAuth("");
+    };
+  });
+
   /**
    * If user press logout button, then hide and show group of components
    * @function logout
@@ -81,16 +105,10 @@ const Tab2: React.FC = () => {
    */
   const logout= ()=>{
     setAlert( "Do you wanna close this session?" , async ()=>{
-      console.log('close end');
-      const url= `http://localhost:3001/api/users/logout`;
+      const url= `/users/logout`;
       const { stat , mess }= await fetchSend( url , undefined , undefined );
 
-      setToast(mess);
-      if(stat){
-        setUser({ logged: false , name: "" });
-        localStorage.removeItem('logged');
-        localStorage.removeItem('username');
-      };
+      stat && notAuth(mess);
     });
   };
 
@@ -123,13 +141,13 @@ const Tab2: React.FC = () => {
             <IonGrid className="container-tab2">
               <IonRow>
                 <IonCol sizeXs="12" sizeMd="6" sizeLg="5" offsetLg="1" >
-                  <AddItem/>
+                  <AddUser actNotAuth= { notAuth } />
                 </IonCol>
                 <IonCol sizeXs="12" sizeMd="6" sizeLg="5" >
-                  <AddUser/>
+                  <AddItem actNotAuth= { notAuth } /> 
                 </IonCol>
                 <IonCol sizeXs="12" sizeMd="6" sizeLg="6" offsetMd="3" offsetLg="3" >
-                <ButtonUD/>
+                  <ButtonUD/>
                 </IonCol>
               </IonRow>
             </IonGrid>

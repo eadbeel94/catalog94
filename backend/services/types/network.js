@@ -6,12 +6,12 @@ const router= Router();
 const { getAllElemets }= require('./index.js');
 
 /**
- * Save a new user into database, use middleware validation form
+ * Get all vehicle's types
  *
  * @name addOne
- * @path {POST} /api/users/addOne
+ * @path {POST} /api/types/getAll
  * @body {object} user Include all user fields  
- * @response {object} data
+ * @response {object} data All element's types
  * @response {string} mess contain status message
  * @memberof route/user
  */

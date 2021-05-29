@@ -3,12 +3,12 @@
 const { Schema, model } = require('mongoose'); 
 
 /** 
- * Mongodb schema with all recipe params
- * @const {schema} recipeSchema
+ * Mongodb schema with all vehicle's params
+ * @const {schema} vehicleSchema
  * @memberof model/schemas
  */
 const vehicleSchema = new Schema({                           //Creo una tabla de nombre UserSchema
-  vin:   { type: String, unique: true },  //CENTER
+  vin:   { type: String, required: true , unique: true },  //CENTER
   name:  { type: String },  //STORAGE
   manuf: { type: String },  //#OEM
   model: { type: String },  //DESC

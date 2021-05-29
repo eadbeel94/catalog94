@@ -7,13 +7,14 @@
  * @param {Error} error Object type error 
  * @returns {string} code error
  */
-const getError= ( error ) => {
+export const getError= ( error ) => {
   let message= "";
   if( typeof error === 'object' && error !== null ){
     message+= error.hasOwnProperty('message') ? error.message : JSON.stringify( error );
   }else message+= String(error);
   return message;
 };
+
 /**
  * Send command fetch and process response information
  * @function
@@ -21,24 +22,53 @@ const getError= ( error ) => {
  * @param {string} url endpoint address 
  * @param {string} type can use "GET", "POST" , "PUT" or "DELETE"
  * @param {object|any} send information group send to backend
- * @returns {{ stat , data , mess }} response status, information returned and message error if exist it
+ * @returns {Promise<{ stat: boolean , data: any , mess: string , noauth: boolean }>} response status, information returned, message error if exist it and auth status
  */
-const fetchSend= async( url="" , type="" , send )=>{
+export const fetchSend= async( url="" , type="" , send )=>{
 
+  /** 
+   * URL endpoint
+   * @const {string} IP
+   * @memberof front/helper
+   */
+  const IP= process.env.NODE_ENV !== 'production' ? `http://localhost:3001/api` : `/api`
+
+  /** 
+  * End state after process endopoint response
+  * @type {boolean}
+  * @memberof front/helper
+  */
   let stat= false;
+  /** 
+  * If user not logged succesfully, this value will be false
+  * @type {boolean}
+  * @memberof front/helper
+  */
+  let noauth;
+  /** 
+  * Group information got from server
+  * @type {object}
+  * @memberof front/helper
+  */
   let data= {};
+  /** 
+   * status detail message
+   * @type {string}
+   * @memberof front/helper
+   */
   let mess= "";
+
   try {
     const config= { method: type || "GET" };
     config.headers= { 'X-Requested-With': 'XMLHttpRequest' };
     send && ( config.body= JSON.stringify(send) );
     send && ( config.headers= { ...config.headers , 'Content-Type': 'application/json'  }  );
 
-    const res= await fetch( url, config );
+    const res= await fetch( IP + url, config );
     const json= await res.json();
 
-    if( !res.ok ) throw { status: res.status ,  message: `${ json.stack ? json.stack.split('\n')[0] : json.error }`  };
-    //if( !json.status )  throw { status: json.status , message: `${ json.mess }`       };
+    if( res.status === 511 ) noauth= true;
+    if( !res.ok ) throw new Error(`${ json.stack ? json.stack.split('\n')[0] : json.error }`);
 
     data= json.data;
     mess= json.mess;
@@ -48,7 +78,7 @@ const fetchSend= async( url="" , type="" , send )=>{
     mess= getError(err);
   };
 
-  return { stat , data , mess };
+  return { stat , data , mess , noauth };
 };
 /**
  * Create three rows based on first row
@@ -58,7 +88,7 @@ const fetchSend= async( url="" , type="" , send )=>{
  * @param {number} columns quantity to split the first array
  * @returns { Array } Return an array that incle n arrays
  */
-const splitRows= ( oldList=[] , columns=3 )=>{
+export const splitRows= ( oldList=[] , columns=3 )=>{
   const orgList= [...oldList];
   const maxCol= oldList.length / 3;
   const newList= new Array(columns);
@@ -76,7 +106,7 @@ const splitRows= ( oldList=[] , columns=3 )=>{
  * @param {string} list position list value
  * @returns {string} new name column
  */
-const genGroup= ( col=0, list="" )=> {
+export const genGroup= ( col=0, list="" )=> {
   let newcol;
   switch (col) {
     case 1:   newcol= "B"; break;
@@ -85,5 +115,3 @@ const genGroup= ( col=0, list="" )=> {
   }
   return `${newcol}${list} ->`;
 };
-
-module.exports= { getError , fetchSend , splitRows , genGroup };

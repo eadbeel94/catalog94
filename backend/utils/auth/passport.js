@@ -36,9 +36,9 @@ passport.use(new LocalStrategy(
  * @memberof util/auth
  */
 passport.serializeUser(( userdata , done) => {
-  let info= {
+  const info= {
     id: userdata._id || '',
-    username: userdata.username || '',
+    account: userdata.account || '',
     fullname: userdata.fullname
   }
   done(null, info );

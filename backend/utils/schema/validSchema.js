@@ -5,17 +5,27 @@ const Joi= require('joi');
 /**
  * Using joi structure, create a validator for ID mongo db values
  * @type {Object}
- * @constant recipeIdSchema
+ * @constant vehicleIdSchema
  * @property {string} id Check if exist 24 hexadecimal positions 
  * @memberof util/schemas
  */
-const recipeIdSchema= Joi.object({
+const vehicleIdSchema= Joi.object({
   id: Joi.string().regex(/^[0-9a-fA-F]{24}$/)
+});
+/**
+ * Using joi structure, create a validator for vin vehicle
+ * @type {Object}
+ * @constant vehicleVinSchema
+ * @property {string} vin Check if exist 17 alphabetic values 
+ * @memberof util/schemas
+ */
+ const vehicleVinSchema= Joi.object({
+  vin: Joi.string().regex(/^[0-9a-zA-Z]{17}$/)
 });
 /**
  * Using joi structure, create a validator for each field into form recipe
  * @type {Object}
- * @constant recipeSchema
+ * @constant vehicleNewSchema
  * @property {string} title evaluate that string contain 100 between 3 values 
  * @property {Array} list evaluate that exist an array of strings
  * @property {string} inst evaluate that string contain more 3 character
@@ -26,25 +36,49 @@ const recipeIdSchema= Joi.object({
  * @property {string} datem evaluate that string contain 100 between 3 values 
  * @memberof util/schemas
  */
-const recipeSchema= Joi.object({
-  title: Joi.string().min(3).max(100).required(),
-  list:  Joi.array().items(Joi.string()),
-  inst:  Joi.string().min(3),
-  from:  Joi.string().min(3).max(100),
-  desc:  Joi.string().min(3).max(200),
-  image: Joi.string().min(3).max(100),
-  datec: Joi.string().min(3).max(100),
-  datem: Joi.string().min(3).max(100),
+const vehicleNewSchema= Joi.object({
+  vin:  Joi.string().regex(/^[0-9a-zA-Z]{17}$/).required(),
+  name: Joi.string().min(3),
+  manuf: Joi.string().min(3).max(50),
+  model: Joi.string().min(3).max(50),
+  type:  Joi.string().min(3).max(50),
+  fuel:  Joi.string().min(3).max(50),
+  color: Joi.string().min(3).max(50),
+  datec: Joi.string().min(3),
+  datem: Joi.string().min(3),
+});
+/**
+ * Using joi structure, create a validator for each field into form recipe
+ * @type {Object}
+ * @constant vehicleEditSchema
+ * @property {string} name  evaluate that string contain more 100 between 3 characters
+ * @property {string} manuf evaluate that string contain more 100 between 3 characters
+ * @property {string} model evaluate that string contain more 100 between 3 characters
+ * @property {string} type  evaluate that string contain more 100 between 3 characters
+ * @property {string} fuel  evaluate that string contain more 100 between 3 characters
+ * @property {string} color evaluate that string contain more 100 between 3 characters
+ * @property {string} datec evaluate that string contain more 3 character
+ * @property {string} datem evaluate that string contain more 3 character
+ * @memberof util/schemas
+ */
+ const vehicleEditSchema= Joi.object({
+  name: Joi.string().min(3),
+  manuf: Joi.string().min(3).max(50),
+  model: Joi.string().min(3).max(50),
+  type:  Joi.string().min(3).max(50),
+  fuel:  Joi.string().min(3).max(50),
+  color: Joi.string().min(3).max(50),
+  datec: Joi.string().min(3),
+  datem: Joi.string().min(3),
 });
 /**
  * Using joi structure, create a validator for each field into form user
  * @type {Object}
  * @constant userNewSchema
  * @property {string} fullname evaluate that value is a string
- * @property {string} username evaluate that value is a string
+ * @property {string} account evaluate that value is a string
  * @property {string} password evaluate that string contain more 3 character
  * @property {string} confirm evaluate that string contain more 3 character
- * @property {string} email evaluate that string is a email end with com or net
  * @memberof util/schemas
  */
 const userNewSchema= Joi.object({
@@ -55,7 +89,9 @@ const userNewSchema= Joi.object({
 }).with('password', 'confirm');
 
 module.exports= {
-  recipeIdSchema,
-  recipeSchema,
+  vehicleIdSchema,
+  vehicleVinSchema,
+  vehicleNewSchema,
+  vehicleEditSchema,
   userNewSchema
 };

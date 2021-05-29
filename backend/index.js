@@ -36,13 +36,10 @@ app.use(passport.session());                          //Inicialize session
 require('./routes/apiRoutes.js')(app);
 
 //--------------------------- Static files ---------------------------
-//app.use( express.static( join(__dirname, '../build') ) );
-/*
 app.use('/static', express.static(    join(__dirname, '../build/static')   ));
 app.get('*', (req, res) => {
   res.sendFile('index.html', {  root: join(__dirname, '../build/')  } );
 });
-*/
 //--------------------------- Errors ---------------------------
 
 app.use( function( req , res , next ) {

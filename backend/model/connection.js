@@ -10,7 +10,7 @@ const { DB_URI }= require('../utils/config.js');
  * @memberof model/connect
  */
 const connection= ( uri="" ) => {
-  connect( DB_URI , {
+  connect( uri , {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,

@@ -4,7 +4,7 @@ const { Router }= require('express');
 const router= Router();
 
 const valid= require('../../utils/middlewares/validHandler.js');
-const { authHandler } = require('../../utils/middlewares/authHandler.js');
+const { authHandler , checkLogged } = require('../../utils/middlewares/authHandler.js');
 const { addOneElement }= require('./index.js');
 const { userNewSchema }= require('../../utils/schema/validSchema.js');
 
@@ -18,7 +18,7 @@ const { userNewSchema }= require('../../utils/schema/validSchema.js');
  * @response {string} mess contain status message
  * @memberof route/user
  */
-router.post('/addOne' , valid( userNewSchema ) , async (req,res,next)=>{
+router.post('/addOne' , checkLogged , valid( userNewSchema ) , async (req,res,next)=>{
   try {
     const { body: user }= req;
     await addOneElement( user );

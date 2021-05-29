@@ -19,12 +19,6 @@ import { create, trash, closeCircle } from 'ionicons/icons';
 
 import { useAlert , useMessage } from '../hooks/main.jsx';
 import { fetchSend } from '../js/helper.js';
-/** 
- * Common IP for fetch operations
- * @const {string} IP
- * @memberof components/AddItem
- */
-const IP= `http://localhost:3001/api/vehicle`;
 
 /**
  * Component for showing a Form with Item values
@@ -68,7 +62,7 @@ const ModalItem: React.FC<{ isOpen: boolean , actClose: any , vin: string , actU
    * @type {useMessage}  
    * @memberof components/ModalItem
    */
-  const [ isToast , setToast , , , initToast ]: any= useMessage({ req: false, mess: "", time: 1000 });
+  const [ isToast , setToast , , , initToast ]: any= useMessage({ req: false, mess: "", time: 3000 });
   /** 
    * State variable that is used in alert component
    * @constant isToast-setToast-initToast
@@ -84,7 +78,7 @@ const ModalItem: React.FC<{ isOpen: boolean , actClose: any , vin: string , actU
    */
   const getOne= async ()=>{
     setLoading(true)
-    const url= `${ IP }/getOne/${ vin }`;
+    const url= `/vehicle/getOne/${ vin }`;
     const { data }: any= await fetchSend(url , undefined, undefined);
     setCar( data );
     setLogged( Boolean(localStorage.getItem('username')) );
@@ -127,8 +121,20 @@ const ModalItem: React.FC<{ isOpen: boolean , actClose: any , vin: string , actU
     ev.preventDefault();
     setAlert( "Do you wanna save these changes?" , async ()=>{
       setLoading(true);
-      const url= `${ IP }/editOne/${ car._id }`;
-      const { stat, mess }: any= await fetchSend( url , 'PUT' , car );
+      const url= `/vehicle/editOne/${ car._id }`;
+      const send= { ...car };
+      delete send._id;
+      delete send.__v;
+      delete send.datec;
+      delete send.datem;
+      delete send.vin;
+      const { stat , mess , noauth }= await fetchSend( url , 'PUT' , send );
+
+      if(noauth){
+        setLogged(false);
+        localStorage.removeItem('username');
+        localStorage.removeItem('logged');
+      };
 
       !stat && setToast(mess);
       stat && actUpdate('change',{
@@ -157,8 +163,14 @@ const ModalItem: React.FC<{ isOpen: boolean , actClose: any , vin: string , actU
     setAlert( "Do you wanna delete this element?" , async ()=>{
 
       setLoading(true);
-      const url= `${ IP }/deleteOne/${ car._id }`;
-      const { stat, mess }: any= await fetchSend( url , 'DELETE' , undefined );
+      const url= `/vehicle/deleteOne/${ car._id }`;
+      const { stat, mess , noauth }: any= await fetchSend( url , 'DELETE' , undefined );
+
+      if(noauth){
+        setLogged(false);
+        localStorage.removeItem('username');
+        localStorage.removeItem('logged');
+      };
 
       !stat && setToast(mess);
       stat && actUpdate('remove', car._id );

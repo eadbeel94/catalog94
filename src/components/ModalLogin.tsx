@@ -21,13 +21,6 @@ import { peopleCircleOutline , enterOutline } from 'ionicons/icons';
 import { useMessage } from '../hooks/main.jsx';
 import { fetchSend } from '../js/helper.js';
 
-/** 
- * Common IP for fetch operations
- * @const {string} IP
- * @memberof components/login
- */
-const IP= `http://localhost:3001/api/users`;
-
 /**
  * Component for showing a Modal login
  * @component
@@ -40,7 +33,7 @@ const ModalLogin: React.FC<{ show: any, actClose: any, actSignIn: any }> = ({ sh
    * @type {useMessage}  
    * @memberof components/login
    */
-  const [ isToast , setToast , , , initToast ]: any= useMessage({ req: false, mess: "", time: 1000 });
+  const [ isToast , setToast , , , initToast ]: any= useMessage({ req: false, mess: "", time: 2000 });
   /**
    * send user data to backend and process validation
    * @function saveItem
@@ -49,7 +42,7 @@ const ModalLogin: React.FC<{ show: any, actClose: any, actSignIn: any }> = ({ sh
    */
   const signing= async (ev: any)=>{
     ev.preventDefault();
-    const url= `${ IP }/auth`;
+    const url= `/users/auth`;
     const send= { username: String(ev.target[0].value).toUpperCase() , password: ev.target[1].value };
     const { stat , data , mess }= await fetchSend( url , "POST" , send );
 

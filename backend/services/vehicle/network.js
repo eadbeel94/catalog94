@@ -3,13 +3,13 @@
 const { Router }= require('express');
 const router= Router();
 
-/*
+
 const valid= require('../../utils/middlewares/validHandler.js');
 
 const { NOT_AUTH , TEST_ID }= require('../../utils/config.js');
 const { checkLogged } = require('../../utils/middlewares/authHandler.js');
-const { recipeIdSchema, recipeSchema }= require('../../utils/schema/validSchema.js');
-*/
+const { vehicleNewSchema , vehicleEditSchema , vehicleIdSchema , vehicleVinSchema }= require('../../utils/schema/validSchema.js');
+
 
 const { 
   searchElements,
@@ -33,7 +33,7 @@ router.post('/search' , async (req,res,next)=>{
     const { text , filters , page }= req.body;
     const data= await searchElements( text , filters, page );
     
-    res.json({ data , mess: "Search founded" });
+    res.json({ data , mess: data.length > 0 ? "Search found" : "Elements not found" });
   } catch (error) {   next(error);    };
 });
 /**
@@ -46,7 +46,7 @@ router.post('/search' , async (req,res,next)=>{
  * @response {string} mess contain status message
  * @memberof route/recipe
  */
-router.get('/getOne/:vin' , async (req,res,next)=>{
+router.get('/getOne/:vin' , valid(vehicleVinSchema) , async (req,res,next)=>{
   try {
     const { vin }= req.params;
 
@@ -64,15 +64,15 @@ router.get('/getOne/:vin' , async (req,res,next)=>{
  * @response {string} mess contain status message
  * @memberof route/recipe
  */
-router.post('/addOne' , async (req,res,next)=>{
+router.post('/addOne' , checkLogged , valid( vehicleNewSchema ) , async (req,res,next)=>{
   try {
-    const { body: recipe , session }= req;
+    const { body: vehicle }= req;
 
-    let userID= "";
-    if( session.passport )  userID= session.passport.user.id;
+    //let userID= "";
+    //if( session.passport )  userID= session.passport.user.id;
     //if( NOT_AUTH )          userID= TEST_ID;
 
-    await addOneElement( recipe , userID );
+    await addOneElement( vehicle );
     //const data= await getAllElements(userID);
     res.json({ data: true , mess: "Add one element successfully" });
   } catch (error) {   next(error);    };
@@ -88,7 +88,11 @@ router.post('/addOne' , async (req,res,next)=>{
  * @response {string} mess contain status message
  * @memberof route/recipe
  */
-router.put('/editOne/:id', async (req,res,next)=>{
+router.put('/editOne/:id', 
+  checkLogged,
+  valid( vehicleIdSchema , "params" ), 
+  valid(vehicleEditSchema),
+  async (req,res,next)=>{
     try {
       const { id: vehicleID }= req.params;
       const { body: vehicle }= req;
@@ -112,7 +116,7 @@ router.put('/editOne/:id', async (req,res,next)=>{
  * @response {string} mess contain status message
  * @memberof route/recipe
  */
-router.delete('/deleteOne/:id' , async (req,res,next)=>{
+router.delete('/deleteOne/:id' , checkLogged , valid( vehicleIdSchema , "params" ) , async (req,res,next)=>{
   try {
     const { id: vehicleID }= req.params;
 
