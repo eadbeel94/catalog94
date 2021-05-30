@@ -37,12 +37,12 @@ const About: React.FC = () => {
         </IonChip>
         <br/>
         <p>
-          SEE DOCUMENTATION, ENTER THIS LINK <a href="/doc/index.html">DOCUMENTATION</a>
+          SEE DOCUMENTATION, ENTER THIS LINK <a href="/static/doc/">DOCUMENTATION</a>
         </p>
         <span>
-          CATALOG-94 COPYRIGHT© 2021 
+          CATALOG 94 COPYRIGHT© 2021 
           <br/>
-          ALL RIGHTS RESERVED DESIGNED BY EADBEEL94
+          ALL RIGHTS RESERVED DESIGNED BY <a href="https://eadbeel94.web.app/" target="_blank">EADBEEL94</a>
         </span>
       </IonCardContent>
       

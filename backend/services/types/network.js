@@ -1,4 +1,4 @@
-/** @namespace route/user */
+/** @namespace route/type */
 
 const { Router }= require('express');
 const router= Router();
@@ -6,14 +6,13 @@ const router= Router();
 const { getAllElemets }= require('./index.js');
 
 /**
- * Get all vehicle's types
+ * Get all distinct vehicle's types
  *
- * @name addOne
- * @path {POST} /api/types/getAll
- * @body {object} user Include all user fields  
+ * @name getAll
+ * @path {GET} /api/types/getAll
  * @response {object} data All element's types
  * @response {string} mess contain status message
- * @memberof route/user
+ * @memberof route/type
  */
 router.get('/getAll' , async (req,res,next)=>{
   try {

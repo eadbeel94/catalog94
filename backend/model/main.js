@@ -7,27 +7,27 @@ const { Schema, model } = require('mongoose');
  * @const {schema} vehicleSchema
  * @memberof model/schemas
  */
-const vehicleSchema = new Schema({                           //Creo una tabla de nombre UserSchema
-  vin:   { type: String, required: true , unique: true },  //CENTER
-  name:  { type: String },  //STORAGE
-  manuf: { type: String },  //#OEM
-  model: { type: String },  //DESC
-  type:  { type: String },  //OEM
-  fuel:  { type: String },  //COST
-  color: { type: String },  //TYPE
-  datec: { type: String }, //DATE EDITED
-  datem: { type: String }, //DATE EDITED
+const vehicleSchema = new Schema({
+  vin:   { type: String, required: true , unique: true },
+  name:  { type: String },
+  manuf: { type: String },
+  model: { type: String },
+  type:  { type: String },
+  fuel:  { type: String },
+  color: { type: String },
+  datec: { type: String },
+  datem: { type: String },
 });
 
 /** 
- * Mongodb schema with all user params 
+ * Mongodb schema with all user's params 
  * @const {schema} userSchema
  * @memberof model/schemas
  */
 const userSchema = new Schema({
-  account: { type: String, required: true , unique: true },                 //Creo una columna llamada name
+  account: { type: String, required: true , unique: true },
   fullname: { type: String },
-  password: { type: String, required: true },             //Creo una columna llamada password
+  password: { type: String, required: true },
   date: { type: String }
 })
 

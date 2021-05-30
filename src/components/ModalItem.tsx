@@ -1,4 +1,4 @@
-/** @namespace components/ModalItem */
+/** @namespace view/ModalItem */
 
 import { useState , useEffect } from 'react';
 
@@ -17,64 +17,69 @@ import {
 } from '@ionic/react';
 import { create, trash, closeCircle } from 'ionicons/icons';
 
-import { useAlert , useMessage } from '../hooks/main.jsx';
+import { useAlert , useMessage } from '../hooks/main';
 import { fetchSend } from '../js/helper.js';
 
 /**
  * Component for showing a Form with Item values
  * @component
+ * @param {object} props Group elements that inicialize this component
+ * @param {boolean} props.isOpen show this component
+ * @param {function} props.actClose fcn that execute a parent fcn when user press close
+ * @param {string} props.vin get vehicle identificator
+ * @param {function} props.actUpdate fcn that execute a parent fcn when user change a value
  * @returns JSX Element that include a form
  */
-const ModalItem: React.FC<{ isOpen: boolean , actClose: any , vin: string , actUpdate: any }> = (props) => {
+const ModalItem: React.FC<{ isOpen: boolean , actClose: Function , vin: string , actUpdate: Function }> = (props) => {
   const { isOpen, actClose, vin, actUpdate }: any= props;
 
   /** 
    * State variable that is used in loading component
    * @constant loading-setLoading
    * @type {useState}  
-   * @memberof components/ModalItem
+   * @memberof view/ModalItem
    */
   const [loading, setLoading] = useState(false);
   /** 
    * State variable that show and hide this modal
    * @constant modal-setModal
    * @type {useState}  
-   * @memberof components/ModalItem
+   * @memberof view/ModalItem
    */
   const [modal, setModal] = useState(false);
   /** 
    * State variable that include each value into form
    * @constant modal-setModal
    * @type {useState}  
-   * @memberof components/ModalItem
+   * @memberof view/ModalItem
    */
   const [car, setCar]: any = useState({});
   /** 
    * State variable that contain a boolean with user login status
    * @constant loading-setLoading
    * @type {useState}  
-   * @memberof components/ModalItem
+   * @memberof view/ModalItem
    */
   const [logged, setLogged]= useState(false);
   /** 
    * State variable that is used in toast component
    * @constant isToast-setToast-initToast
    * @type {useMessage}  
-   * @memberof components/ModalItem
+   * @memberof view/ModalItem
    */
   const [ isToast , setToast , , , initToast ]: any= useMessage({ req: false, mess: "", time: 3000 });
   /** 
    * State variable that is used in alert component
    * @constant isToast-setToast-initToast
    * @type {useMessage}  
-   * @memberof components/ModalItem
+   * @memberof view/ModalItem
    */
   const [ alert , setAlert ,  ,  ,  initAlert ]:any= useAlert({ req: false , mess: "" , cb: ()=>{} })
 
   /**
    * send request to get item previously required for parent
    * @function getOne
-   * @memberof components/ModalItem
+   * @memberof view/ModalItem
    */
   const getOne= async ()=>{
     setLoading(true)
@@ -88,14 +93,14 @@ const ModalItem: React.FC<{ isOpen: boolean , actClose: any , vin: string , actU
   /**
    * When user select a item, then show this modal with all information about selection
    * @callback useEffect->getOne
-   * @memberof components/ModalItem
+   * @memberof view/ModalItem
    */
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { isOpen && getOne() }, [isOpen]);
   /**
    * Close all elements into this modal and also close itself
    * @function closeAll
-   * @memberof components/ModalItem
+   * @memberof view/ModalItem
    */
   const closeAll= ()=>{
     setLoading(false);
@@ -106,7 +111,7 @@ const ModalItem: React.FC<{ isOpen: boolean , actClose: any , vin: string , actU
    * for each change into a input, this value will save into state variable
    * @function handleChange
    * @param {Event} ev user modify any input event
-   * @memberof components/ModalItem
+   * @memberof view/ModalItem
    */
   const handleChange= ({ target }:{ target: any }) => {
     setCar({ ...car , [target.name]: target.value });
@@ -115,7 +120,7 @@ const ModalItem: React.FC<{ isOpen: boolean , actClose: any , vin: string , actU
    * If user press save button, show a message, if press confirm button then send request to backend for save changes
    * @function editOne
    * @param {Event} ev press save button event
-   * @memberof components/ModalItem
+   * @memberof view/ModalItem
    */
   const editOne= (ev:any)=>{
     ev.preventDefault();
@@ -157,7 +162,7 @@ const ModalItem: React.FC<{ isOpen: boolean , actClose: any , vin: string , actU
   /**
    * If user press delete button, show a message, if press confirm button then send request to backend for delete item
    * @function delOne
-   * @memberof components/ModalItem
+   * @memberof view/ModalItem
    */
   const delOne= ()=>{
     setAlert( "Do you wanna delete this element?" , async ()=>{
@@ -190,7 +195,7 @@ const ModalItem: React.FC<{ isOpen: boolean , actClose: any , vin: string , actU
         <section>
           <div>
             <div className="modal-item-title">
-              <label>CATALOG M</label>
+              <label>CATALOG 94</label>
               <div>
                 <IonButton color="dark" fill="outline" onClick= { closeAll } > <IonIcon icon={ closeCircle } /> </IonButton>
               </div>
@@ -259,7 +264,7 @@ const ModalItem: React.FC<{ isOpen: boolean , actClose: any , vin: string , actU
 
       <IonAlert 
         isOpen={ alert.req } 
-        header={'CATALOG M'} 
+        header={'CATALOG 94'} 
         onDidDismiss={ initAlert }
         message= { alert.mess }
         buttons={[

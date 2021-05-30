@@ -49,7 +49,7 @@ app.use( function( req , res , next ) {
     } = boom.notFound(); 
     res.status( statusCode ).json( payload );
   }else
-    res.status(404).send("404");
+    res.status(404).redirect("/404");
 });
 
 const { logError, wrapError , cliErrorHandler, errorHandler }= require('./utils/middlewares/errorHandler.js');

@@ -1,14 +1,19 @@
-/** @namespace route/recipe */
+/** @namespace route/vehicle */
 
 const { Router }= require('express');
 const router= Router();
 
-
+const fs= require('fs');
 const valid= require('../../utils/middlewares/validHandler.js');
 
-const { NOT_AUTH , TEST_ID }= require('../../utils/config.js');
+//const { NOT_AUTH , TEST_ID }= require('../../utils/config.js');
 const { checkLogged } = require('../../utils/middlewares/authHandler.js');
-const { vehicleNewSchema , vehicleEditSchema , vehicleIdSchema , vehicleVinSchema }= require('../../utils/schema/validSchema.js');
+const { 
+  vehicleNewSchema, 
+  vehicleEditSchema, 
+  vehicleIdSchema, 
+  vehicleVinSchema 
+}= require('../../utils/schema/validSchema.js');
 
 
 const { 
@@ -16,17 +21,20 @@ const {
   getOneElement,
   addOneElement,
   editOneElement,
-  delOneElement
+  delOneElement,
+  genOneRandom,
+  getAllElemens
 }= require('./index.js');
 
 /**
- * Get all Recipes using a specific user ID, use middleware to check log in status
+ * Get all Vehicles using a specific word, use middleware to check log in status
  *
  * @name getAll
- * @path {GET} /api/recipes/getAll
- * @response {object} data contain group of recipes and log gin feedback status
+ * @path {GET} /api/vehicle/getAll
+ * @body {object} get text(string), filter(object) , page(number) from client
+ * @response {object} data contain all vehicles
  * @response {string} mess contain status message
- * @memberof route/recipe
+ * @memberof route/vehicle
  */
 router.post('/search' , async (req,res,next)=>{
   try {
@@ -37,14 +45,14 @@ router.post('/search' , async (req,res,next)=>{
   } catch (error) {   next(error);    };
 });
 /**
- * Get all Recipes using a specific user ID and recipe ID, use middleware to check log in status and validation form
+ * Get all Vehicles using a specific vin, use middleware to check log in status and validation form
  *
  * @name getOne
- * @path {GET} /api/recipes/getOne
- * @params {string} :id recipe Identificator
- * @response {object} data contain the recipe
+ * @path {GET} /api/vehicle/getOne
+ * @params {string} :vin vehicle Identificator
+ * @response {object} data contain the vehicle
  * @response {string} mess contain status message
- * @memberof route/recipe
+ * @memberof route/vehicle
  */
 router.get('/getOne/:vin' , valid(vehicleVinSchema) , async (req,res,next)=>{
   try {
@@ -55,14 +63,14 @@ router.get('/getOne/:vin' , valid(vehicleVinSchema) , async (req,res,next)=>{
   } catch (error) {   next(error);    };
 });
 /**
- * Save a recipe into database, use middleware to check log in status and validation form
+ * Save a vehicle into database, use middleware to check log in status and validation form
  *
  * @name addOne
- * @path {POST} /api/recipes/addOne
- * @body {object} recipe Include all recipe fields  
- * @response {object} data contain all recipes
+ * @path {POST} /api/vehicle/addOne
+ * @body {object} vehicle Include all vehicle fields  
+ * @response {object} data contain all vehicles
  * @response {string} mess contain status message
- * @memberof route/recipe
+ * @memberof route/vehicle
  */
 router.post('/addOne' , checkLogged , valid( vehicleNewSchema ) , async (req,res,next)=>{
   try {
@@ -78,15 +86,15 @@ router.post('/addOne' , checkLogged , valid( vehicleNewSchema ) , async (req,res
   } catch (error) {   next(error);    };
 });
 /**
- * Edit a recipe into database, use middleware to check log in status and validation form
+ * Edit a vehicle into database, use middleware to check log in status and validation form
  *
  * @name editOne
- * @path {PUT} /api/recipes/editOne
- * @params {string} :id recipe Identificator
- * @body {object} recipe Include all recipe fields  
+ * @path {PUT} /api/vehicle/editOne
+ * @params {string} :id vehicle mongo db Identificator
+ * @body {object} vehicle Include all vehicle's fields  
  * @response {object} data
  * @response {string} mess contain status message
- * @memberof route/recipe
+ * @memberof route/vehicle
  */
 router.put('/editOne/:id', 
   checkLogged,
@@ -107,14 +115,14 @@ router.put('/editOne/:id',
   }
 );
 /**
- * Delete a recipe into database, use middleware to check log in status and validation form
+ * Delete a vehicle into database, use middleware to check log in status and validation form
  *
  * @name delOne
- * @path {DELETE} /api/recipes/delOne
- * @params {string} :id recipe Identificator
+ * @path {DELETE} /api/vehicle/delOne
+ * @params {string} :id vehicle mongodb Identificator
  * @response {object} data
  * @response {string} mess contain status message
- * @memberof route/recipe
+ * @memberof route/vehicle
  */
 router.delete('/deleteOne/:id' , checkLogged , valid( vehicleIdSchema , "params" ) , async (req,res,next)=>{
   try {
@@ -125,5 +133,37 @@ router.delete('/deleteOne/:id' , checkLogged , valid( vehicleIdSchema , "params"
   } catch (error) {   next(error);    };
 });
 
+/**
+ * Get a random vehicle using faker library, use middleware to check log in status
+ *
+ * @name getRandom
+ * @path {GET} /api/vehicle/getRandom
+ * @response {object} data contain the vehicle
+ * @response {string} mess contain status message
+ * @memberof route/vehicle
+ */
+router.get('/getRandom' , checkLogged , async (req,res,next)=>{
+  try {
+    const data= await genOneRandom();
+    res.json({ data , mess: "Get one Random element successfully" });
+  } catch (error) {   next(error);    };
+});
+
+/**
+ * Get all Vehicles and convert a excel file, use middleware to check log in status
+ *
+ * @name download
+ * @path {GET} /api/vehicle/download
+ * @memberof route/vehicle
+ */
+router.get('/download' , checkLogged , async (req,res,next)=>{
+  try {
+    const filename= await getAllElemens();
+    res.download(filename , err =>{
+      if(err) next(err)
+      else    fs.unlinkSync( filename );
+    });
+  } catch (error) {   next(error);    };
+});
 
 module.exports= router;

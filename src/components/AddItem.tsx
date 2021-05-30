@@ -1,4 +1,4 @@
-/** @namespace components/AddItem */
+/** @namespace view/AddItem */
 
 import { useState } from "react";
 
@@ -15,15 +15,15 @@ import {
   IonToast 
 } from '@ionic/react';
 
-import { save , addCircle } from 'ionicons/icons';
+import { save , addCircle , shuffle } from 'ionicons/icons';
 
-import { useMessage } from '../hooks/main.jsx';
+import { useMessage } from '../hooks/main';
 import { fetchSend } from '../js/helper.js';
 
 /** 
  * Initial state for each input/criterion into form
  * @const {object} initState
- * @memberof components/AddItem
+ * @memberof view/AddItem
  */
 const initState= { vin: "", name: "", manuf: "" , model: "" , type: "" , fuel: "" , color: "" };
 
@@ -32,27 +32,27 @@ const initState= { vin: "", name: "", manuf: "" , model: "" , type: "" , fuel: "
  * @component
  * @returns JSX Element that include a form
  */
-const AddItem: React.FC<{ actNotAuth: any }>  = ({ actNotAuth }) => {
+const AddItem: React.FC<{ actNotAuth: Function }>  = ({ actNotAuth }) => {
 
   /** 
    * State variable that include each input value into form
    * @constant itemForm-setItemForm
    * @type {useState}  
-   * @memberof components/AddItem
+   * @memberof view/AddItem
    */
   const [ itemForm , setItemForm ]:any = useState(initState);
   /** 
    * State variable that is used in toast component
    * @constant isToast-setToast-initToast
    * @type {useMessage}  
-   * @memberof components/AddItem
+   * @memberof view/AddItem
    */
   const [ isToast , setToast , , , initToast ]: any= useMessage({ req: false, mess: "", time: 3500 });
   /**
    * send request to save element into backend
    * @function saveItem
    * @param {Event} ev click event button save press into form
-   * @memberof components/AddItem
+   * @memberof view/AddItem
    */
   const saveItem= async (ev: any)=>{
     ev.preventDefault();
@@ -68,11 +68,17 @@ const AddItem: React.FC<{ actNotAuth: any }>  = ({ actNotAuth }) => {
    * for each change into a input, this value will save into state variable
    * @function handleChange
    * @param {Event} ev user modify any input event
-   * @memberof components/AddItem
+   * @memberof view/AddItem
    */
   const handleChange= ({ target }:{ target: any })=>{
     setItemForm({ ...itemForm , [target.name]: target.value });
   };
+
+  const genRandom= async ()=>{
+    const url= `/vehicle/getRandom`;
+    const { stat , data }= await fetchSend( url, undefined, undefined );
+    stat && setItemForm(data);
+  }
 
   return (
     <>
@@ -161,9 +167,14 @@ const AddItem: React.FC<{ actNotAuth: any }>  = ({ actNotAuth }) => {
               />
             </IonItem>
 
-            <IonButton type="submit" fill="clear" class="btn-outline-typeA" expand="block"> 
-              <IonIcon icon={save} /> SAVE 
-            </IonButton> 
+            <div className="ion-text-center">
+              <IonButton type="submit" fill="clear" class="btn-outline-typeA" style={{ width: "45%" , marginRigth: "0.5rem" }}> 
+                <IonIcon icon={save} /> SAVE
+              </IonButton>
+              <IonButton onClick={ genRandom } type="button" fill="clear" class="btn-outline-typeB" style={{ width: "45%" , marginLeft: "0.5rem" }}> 
+                <IonIcon icon={shuffle} /> RANDOM 
+              </IonButton> 
+            </div>
           </IonCardContent>
         </IonCard>
       </form>

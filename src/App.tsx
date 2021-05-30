@@ -12,6 +12,7 @@ import { IonReactRouter } from '@ionic/react-router';
 import { reorderFour , person } from 'ionicons/icons';
 import Tab1 from './pages/Tab1';
 import Tab2 from './pages/Tab2';
+import Tab404 from './pages/Tab404';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -50,6 +51,9 @@ const App: React.FC = () => (
           </Route>
           <Route exact path="/">
             <Redirect to="/tab1" />
+          </Route>
+          <Route>
+            <Tab404 />
           </Route>
         </IonRouterOutlet>
         <IonTabBar slot="bottom">

@@ -31,7 +31,7 @@ router.post('/addOne' , checkLogged , valid( userNewSchema ) , async (req,res,ne
  * @name auth
  * @path {POST} /api/users/auth
  * @auth This route requires Authentication. If authentication fails it redirect main page with error message
- * @response {object} data
+ * @response {object} data contain user name 
  * @response {string} mess contain status message
  * @memberof route/user
  */

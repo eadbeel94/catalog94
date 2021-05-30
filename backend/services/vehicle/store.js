@@ -1,18 +1,18 @@
 const { Vehicle }= require('../../model/main.js');
 
 /** 
- * CRUD operation to change values into recipe collection
- * @memberof service/recipe
+ * CRUD operation to change values into vehicle collection
+ * @memberof service/vehicle
  **/
 class StoreVehicle{
   /** constructor not used */
-  constructor(){
-
-  };
+  constructor(){};
   /**
-   * Get all recipes using a same userID
-   * @param {string} userID 
-   * @returns {array<object>} All recipes
+   * Get all vehicles based on query
+   * @param {string} filters complex query
+   * @param {number} skip qty elements skiped
+   * @param {number} limit qty elements get from db
+   * @returns {array<object>} All vehicles
    */ 
   async searchSome( filters , skip , limit ){
     try {
@@ -20,9 +20,8 @@ class StoreVehicle{
     } catch (error) { throw error };
   };
   /**
-   * Get a recipe using a recipe ID
-   * @param {string} elementID 
-   * @param {string} userID 
+   * Get a vehicle using a vin code
+   * @param {string} vin vehicle id code
    * @returns {object} if exist get recipe
    */
   async getOne( vin ){
@@ -31,8 +30,8 @@ class StoreVehicle{
     } catch (error) { throw error };
   };
   /**
-   * Save new recipe
-   * @param {object} group object with all recipe's fields
+   * Save new vehicle
+   * @param {object} group object with all vehicle's fields
    */
   async addOne(group){
     try {
@@ -41,10 +40,10 @@ class StoreVehicle{
     } catch (error) { throw error };
   };
   /**
-   * Edit a recipe using recipe ID
+   * Edit a vehicle using vehicle mongo ID
    * @param {string} elementID 
    * @param {object} group 
-   * @returns {object} Recipe edited
+   * @returns {object} Vehicle edited
    */
   async editOne( elementID , group ){
     try {
@@ -52,7 +51,7 @@ class StoreVehicle{
     } catch (error) { throw error };
   };
   /**
-   * Delete a recipe using recipe ID
+   * Delete a vehicle using vehicle mongo ID
    * @param {string} elementID 
    * @returns {object} Recipe deleted
    */
@@ -61,17 +60,12 @@ class StoreVehicle{
       return await Vehicle.findByIdAndDelete( elementID );
     } catch (error) { throw error };
   };
-  /**
-   * Check if recipe is own user ID
-   * @param {string} elementID 
-   * @param {string} userID 
-   * @returns {object} recipeID
-   */
-  async validOne ( elementID , userID ){
+
+  async getAll(){
     try {
-      return await Vehicle.findOne({ _id: elementID, userID }).select('_id');
+      return await Vehicle.find();
     } catch (error) { throw error };
-  };
+  }
 };
 
 module.exports= { StoreVehicle };

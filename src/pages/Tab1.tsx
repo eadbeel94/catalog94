@@ -1,4 +1,4 @@
-/** @namespace pages/Tab1 */
+/** @namespace view/Tab1 */
 
 import { useState , useEffect } from 'react';
 
@@ -8,9 +8,9 @@ import Header from '../components/Header';
 import AllCards from '../components/AllCards';
 import Search from '../components/Search';
 import ModalFilter from '../components/ModalFilter';
-import BotonFilter from '../components/BotonFilter';
+import ButtonFilter from '../components/ButtonFilter';
 
-import { useShowHide , useMessage } from '../hooks/main.jsx';
+import { useShowHide , useMessage } from '../hooks/main';
 import { fetchSend } from '../js/helper.js';
 
 import './Tab1.css';
@@ -26,34 +26,34 @@ const Tab1: React.FC = () => {
    * State variable that include all list elements
    * @constant types-setTypes
    * @type {useState}  
-   * @memberof pages/Tab1
+   * @memberof view/Tab1
    */
   const [ types , setTypes ] = useState([]);
   /** 
    * State variable that include show and hide methods for modal element
    * @constant isFilter-openFilter-closeFilter
    * @type {useShowHide}  
-   * @memberof pages/Tab1
+   * @memberof view/Tab1
    */
   const [ isFilter, openFilter, closeFilter ]: any= useShowHide({ req: false });
   /** 
    * State variable where storage user search
    * @constant userSearch-setUserSearch
    * @type {useState}  
-   * @memberof pages/Tab1
+   * @memberof view/Tab1
    */
   const [ userSearch , setUserSearch ] = useState({ text: "" , filters: {} });
     /** 
    * State variable that include show and hide methods for toast component
    * @constant isToast-setToast-initToast
    * @type {useMessage}  
-   * @memberof pages/Tab1
+   * @memberof view/Tab1
    */
   const [ isToast , setToast , , , initToast ]: any= useMessage({ req: false, mess: "", time: 3000 });
   /**
    * send request to get all types words
    * @function getTypes
-   * @memberof pages/Tab1
+   * @memberof view/Tab1
    */
   const getTypes= async ()=>{
     const url= `/types/getAll`;
@@ -65,7 +65,7 @@ const Tab1: React.FC = () => {
   /**
    * Get all items types each init the page
    * @callback useEffect->getTypes
-   * @memberof pages/Tab1
+   * @memberof view/Tab1
    */
   useEffect(() => {
     getTypes();
@@ -74,7 +74,7 @@ const Tab1: React.FC = () => {
    * If user insert a word in serach bar, then this value will save into state variable
    * @function searchStart
    * @param {Event} ev Key down pressed event in search bar
-   * @memberof pages/Tab1
+   * @memberof view/Tab1
    */
   const searchStart= ({ target , keyCode }:any) => {
     if(keyCode === 13) setUserSearch({ ...userSearch , text: target.value });
@@ -83,7 +83,7 @@ const Tab1: React.FC = () => {
    * Get types selection from modal component and update state variable
    * @function selectStart
    * @param {object} filters 
-   * @memberof pages/Tab1
+   * @memberof view/Tab1
    */
   const selectStart= (filters: object)=>{
     setUserSearch({ ...userSearch , filters });
@@ -100,7 +100,7 @@ const Tab1: React.FC = () => {
         
         <ModalFilter isOpen={ isFilter } types= { types } actClose= { closeFilter } actSelect= { selectStart } />
 
-        <BotonFilter onClick= { openFilter } />
+        <ButtonFilter onClick= { openFilter } />
 
         <IonToast
           isOpen= { isToast.req }

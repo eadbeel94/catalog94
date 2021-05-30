@@ -1,7 +1,7 @@
 {
   "plugins": ["better-docs/component","better-docs/typescript"],
   "source": {
-    "include": ["./src"],
+    "include": ["./src","./backend"],
     "includePattern": ".(js|jsx|ts|tsx)$",
     "excludePattern": "(public|node_modules|public|other)"
   },
@@ -11,7 +11,7 @@
   },
   "opts": {
     "recurse": "true",
-    "destination": "./public/doc/",
+    "destination": "./build/static/doc",
     "template": "node_modules/better-docs",
     "readme": "./README.jsdoc.md"
   }

@@ -26,14 +26,15 @@ const vehicleIdSchema= Joi.object({
  * Using joi structure, create a validator for each field into form recipe
  * @type {Object}
  * @constant vehicleNewSchema
- * @property {string} title evaluate that string contain 100 between 3 values 
- * @property {Array} list evaluate that exist an array of strings
- * @property {string} inst evaluate that string contain more 3 character
- * @property {string} from evaluate that string contain more 3 character
- * @property {string} desc evaluate that string contain 100 between 3 values 
- * @property {string} image evaluate that string contain 100 between 3 values 
- * @property {string} datec evaluate that string contain 100 between 3 values 
- * @property {string} datem evaluate that string contain 100 between 3 values 
+ * @property {string} vin  evaluate that string contain 17 alphanumeric and alphabetic character
+ * @property {string} name  evaluate that string contain more 50 between 3 characters
+ * @property {string} manuf evaluate that string contain more 50 between 3 characters
+ * @property {string} model evaluate that string contain more 50 between 3 characters
+ * @property {string} type  evaluate that string contain more 50 between 3 characters
+ * @property {string} fuel  evaluate that string contain more 50 between 3 characters
+ * @property {string} color evaluate that string contain more 50 between 3 characters
+ * @property {string} datec evaluate that string contain more 3 character
+ * @property {string} datem evaluate that string contain more 3 character
  * @memberof util/schemas
  */
 const vehicleNewSchema= Joi.object({

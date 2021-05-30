@@ -1,9 +1,9 @@
-/** @namespace hooks */
+/** @namespace view/hooks */
 
 /**
  * React hook that allow change state into constructor Function React Component
  * @function useState
- * @memberof hooks
+ * @memberof view/hooks
  * @param {any} state include variable state
  * @param {function} setState include function to change variable state
  */
@@ -32,7 +32,7 @@ export const useShowHide= ({ req }) => {
 /**
  * React custom hook that allow change state
  * @function useMessage
- * @memberof hooks
+ * @memberof view/hooks
  * @param {object} item include variable state
  * @param {function} setOnlyMess include function to change property message
  * @param {function} setOnlyTime include function to change property time
@@ -62,7 +62,7 @@ export const useMessage= ({ req= false , mess= "" , time= 1000 }) => {
 /**
  * React custom hook that allow change state
  * @function useItem
- * @memberof hooks
+ * @memberof view/hooks
  * @param {object} item include variable state
  * @param {function} setData include function to change property data
  * @param {function} initData include function to change init state
@@ -83,7 +83,7 @@ export const useItem= ({ req= false, data }) => {
 /**
  * React custom hook that allow change state
  * @function useAlert
- * @memberof hooks
+ * @memberof view/hooks
  * @param {object} item include variable state
  * @param {function} setData include function to change all properties, request, message and callback
  * @param {function} setMess include function to change property message
@@ -114,5 +114,5 @@ export const useAlert= ({ req= false, mess="", cb=()=>{} }) =>{
  * @typedef useState React hook that allow change state into constructor Function React Component
  * @property {any} state  include variable state
  * @property {function} setState include function to change variable state
- * @memberof hooks
+ * @memberof view/hooks
  */

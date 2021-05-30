@@ -2,14 +2,14 @@
 
 const bcrypt = require('bcrypt');
 const m= require('dayjs');
-const { GroupUser }= require('./store.js');
+const { StoreUser }= require('./store.js');
 
 /**
  * Call methods to modify values into collection user
  * @const {class} store
  * @memberof service/user
  */
-const store= new GroupUser();
+const store= new StoreUser();
 
 module.exports= {
   /**

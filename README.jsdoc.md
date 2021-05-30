@@ -5,45 +5,91 @@ This app can do:
 - Search vehicles
 - Filter elements based on category
 - Login local account
+- Generate random values to fill form with a vehicle information
 
-![](/projects/eshop94/img/readme.png)
+![](/static/img/readme.png)
 
 # Project documentation structure
-- Frontend
-  - [components](/projects/catalog94/pages/doc/backend/route_cart.html)
-  - [hooks](/projects/catalog94/)
-  - [helper](/projects/catalog94/)
-  - [pages](/projects/catalog94/)
-  - [main](/projects/catalog94/)
-  - [components](/projects/catalog94/)
+- Frontend (pages)
+  - [App](/static/doc/App.html)
+  - [Tab1](/static/doc/Tab1.html)
+  - [Tab2](/static/doc/Tab2.html)
+  - [Tab404](/static/doc/Tab404.html)
 
-- Backend (routes)
-  - [items](/projects/catalog94/)
-  - [login](/projects/catalog94/)
-  - [types](/projects/catalog94/)
+- Frontend (components)
+  - [About](/static/doc/About.html)
+  - [AddItem](/static/doc/AddItem.html)
+  - [AddUser](/static/doc/AddUser.html)
+  - [AllCards](/static/doc/AllCards.html)
+  - [ButtonD](/static/doc/ButtonD.html)
+  - [ButtonFilter](/static/doc/ButtonFilter.html)
+  - [Header](/static/doc/Header.html)
+  - [ItemList](/static/doc/ItemList.html)
+  - [ModalFilter](/static/doc/ModalFilter.html)
+  - [ModalItem](/static/doc/ModalItem.html)
+  - [ModalLogin](/static/doc/ModalLogin.html)
+  - [Search](/static/doc/Search.html)
 
+- Frontend (extras)
+  - [helper](/static/doc/view_helper.html)
+  - [hooks](/static/doc/view_hooks.html)
+
+
+- Backend (Tier controller)
+  - [routes/api](/static/doc/route_api.html)
+  - [routes/type](/static/doc/route_type.html)
+  - [routes/user](/static/doc/route_user.html)
+  - [routes/vehicle](/static/doc/route_vehicle.html)
+
+- Backend (Tier services)
+  - [type](/static/doc/service_type.html)
+  - [user](/static/doc/service_user.html)
+  - [vehicle](/static/doc/service_vehicle.html)
+
+- Backend (Tier model)
+  - [connect](/static/doc/model_connect.html)
+  - [schemas](/static/doc/model_schemas.html)
+
+- Backend (extras)
+  - [auth](/static/doc/util_auth.html)
+  - [middleware/auth](/static/doc/util_middleware_auth.html)
+  - [middleware/error](/static/doc/util_middleware_error.html)
+  - [middleware/valid](/static/doc/util_middleware_valid.html)
+  - [schemas](/static/doc/util_schemas.html)
 
 # Used Technologies
 - Frontend
-  - HTML5
-  - CSS/Bootsrap 5
-  - JS/dayjs
+  - React JS
+  - React Router
+  - Ionic
+  - Capacitor
+
 - Backend
   - NodeJS
   - Express
-  - Firebase admin
-  - Firebase functions
-  - Firebase firestore
-  - Firabase storage
-  - Firebase auth
-  - Mercado pago SDK
-  - Webpack
+  - Mongo DB
+  - Passport
+  - Bcrypt
+  - Day.js
+  - Faker.js
+  - Joi.js (Schema descriptor)
+  - Boom (HTTP-friendly error objects)
   - JSdoc
 
 # Links and Resources used in this project
-- [Day-js (light weight alternative moment.js)](https://day.js.org/)
-- [Express-js](https://expressjs.com/)
-- [Webpack](https://webpack.js.org/)
+- [React-js](https://reactjs.org)
+- [React router](https://reactrouter.com/web/guides/quick-start)
+- [Ionic](https://ionicframework.com)
+- [Capacitor](https://capacitorjs.com)
+- [Express-js](https://expressjs.com)
+- [Mongoose](https://mongoosejs.com)
+- [Passport-js](http://www.passportjs.org)
+- [B-crypt](https://www.npmjs.com/package/bcrypt)
+- [Day-js](https://day.js.org/en)
+- [Faker-js](http://marak.github.io/faker.js)
+- [Joi-js](https://joi.dev)
+- [Boom](https://hapi.dev/module/boom)
+- [Jsdoc](https://jsdoc.app)
 
 # About developer
 - [Adbeel Estrada Portfolio](https://eadbeel94.web.app/)

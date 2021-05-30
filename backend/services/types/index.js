@@ -11,7 +11,7 @@ const store= new StoreVehicle();
 
 module.exports= {
   /**
-   * Get all vehicle's types
+   * Get all distinct vehicle's types
    * @function getAllElemets
    * @memberof service/type
    */

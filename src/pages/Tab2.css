@@ -67,8 +67,19 @@
   font-size: 18px;
   height: 32px;
   margin-inline: auto;
-  width: 75%;
 }
+
+.btn-outline-typeB{
+  color: #ffd534; 
+  border: #ffd534 1px solid; 
+  background-color: transparent;
+  font-family: poppins1;
+  font-size: 18px;
+  height: 32px;
+  margin-inline: auto;
+}
+
+
 
 #root ion-chip{
   color: skyblue;

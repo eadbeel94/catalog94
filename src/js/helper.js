@@ -1,9 +1,9 @@
-/** @namespace js/helper */
+/** @namespace view/helper */
 
 /**
  * Create a messase based on error object
  * @function
- * @memberof js/helper
+ * @memberof view/helper
  * @param {Error} error Object type error 
  * @returns {string} code error
  */
@@ -18,7 +18,7 @@ export const getError= ( error ) => {
 /**
  * Send command fetch and process response information
  * @function
- * @memberof js/helper
+ * @memberof view/helper
  * @param {string} url endpoint address 
  * @param {string} type can use "GET", "POST" , "PUT" or "DELETE"
  * @param {object|any} send information group send to backend
@@ -29,32 +29,32 @@ export const fetchSend= async( url="" , type="" , send )=>{
   /** 
    * URL endpoint
    * @const {string} IP
-   * @memberof front/helper
+   * @memberof view/helper
    */
   const IP= process.env.NODE_ENV !== 'production' ? `http://localhost:3001/api` : `/api`
 
   /** 
   * End state after process endopoint response
   * @type {boolean}
-  * @memberof front/helper
+  * @memberof view/helper
   */
   let stat= false;
   /** 
   * If user not logged succesfully, this value will be false
   * @type {boolean}
-  * @memberof front/helper
+  * @memberof view/helper
   */
   let noauth;
   /** 
   * Group information got from server
   * @type {object}
-  * @memberof front/helper
+  * @memberof view/helper
   */
   let data= {};
   /** 
    * status detail message
    * @type {string}
-   * @memberof front/helper
+   * @memberof view/helper
    */
   let mess= "";
 
@@ -83,7 +83,7 @@ export const fetchSend= async( url="" , type="" , send )=>{
 /**
  * Create three rows based on first row
  * @function
- * @memberof js/helper
+ * @memberof view/helper
  * @param {Array<object>} oldList First array with group information
  * @param {number} columns quantity to split the first array
  * @returns { Array } Return an array that incle n arrays
@@ -101,7 +101,7 @@ export const splitRows= ( oldList=[] , columns=3 )=>{
 /**
  * Create a string base on column name and code list value
  * @function
- * @memberof js/helper
+ * @memberof view/helper
  * @param {number} col column number
  * @param {string} list position list value
  * @returns {string} new name column

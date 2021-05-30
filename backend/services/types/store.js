@@ -1,17 +1,14 @@
 const { Vehicle }= require('../../model/main.js');
 
 /** 
- * CRUD operation to change values into user collection
+ * CRUD operation to change values into vehicle collection
  * @memberof service/user
  **/
 class StoreVehicle{
   /** constructor not used */
-  constructor(){
-
-  };
+  constructor(){};
   /**
-   * Save new user
-   * @param {object} group object with all user's fields
+   * Get all distinct types
    */
   async getAll(){
     try {

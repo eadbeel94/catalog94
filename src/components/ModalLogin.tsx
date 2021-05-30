@@ -1,4 +1,4 @@
-/** @namespace components/login */
+/** @namespace view/login */
 
 import { 
   IonPopover, 
@@ -18,27 +18,31 @@ import {
 
 import { peopleCircleOutline , enterOutline } from 'ionicons/icons';
 
-import { useMessage } from '../hooks/main.jsx';
+import { useMessage } from '../hooks/main';
 import { fetchSend } from '../js/helper.js';
 
 /**
  * Component for showing a Modal login
  * @component
+ * @param {object} props Group elements that inicialize this component
+ * @param {boolean} props.show show this component
+ * @param {function} props.actClose fcn that execute a parent fcn when user press close
+ * @param {function} props.actSignIn fcn that execute a parent fcn when backend detect an user unauth
  * @returns JSX Element that include a form
  */
-const ModalLogin: React.FC<{ show: any, actClose: any, actSignIn: any }> = ({ show, actClose, actSignIn }) => {
+const ModalLogin: React.FC<{ show: boolean, actClose: VoidFunction, actSignIn: Function }> = ({ show, actClose, actSignIn }) => {
   /** 
    * State variable that is used in toast component
    * @constant isToast-setToast-initToast
    * @type {useMessage}  
-   * @memberof components/login
+   * @memberof view/login
    */
   const [ isToast , setToast , , , initToast ]: any= useMessage({ req: false, mess: "", time: 2000 });
   /**
    * send user data to backend and process validation
    * @function saveItem
    * @param {Event} ev click event button save press into form
-   * @memberof components/login
+   * @memberof view/login
    */
   const signing= async (ev: any)=>{
     ev.preventDefault();

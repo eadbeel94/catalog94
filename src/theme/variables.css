@@ -183,6 +183,11 @@
   src: url('./fonts/poppins1.ttf');
 }
 
+@font-face {
+  font-family: 'balsami1'; 
+  src: url('./fonts/Balsami1.ttf');
+}
+
 #root ion-header{
   background-color: var(--ion-toolbar-background);
 }
@@ -190,8 +195,17 @@
 #root ion-toolbar{
   max-width: 1000px;
   margin: auto;
+  font-family: balsami1;
 }
 
 #root ion-toolbar ion-icon{
   font-size: 40px;
+}
+
+.w-45{
+  width: 45% !important;
+}
+
+.w-75{
+  width: 75% !important;
 }

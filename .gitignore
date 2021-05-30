@@ -33,3 +33,4 @@ src/theme/img/
 public/doc
 .env
 backend2/
+backend/tmp

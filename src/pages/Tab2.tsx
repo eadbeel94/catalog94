@@ -1,4 +1,4 @@
-/** @namespace pages/Tab2 */
+/** @namespace view/Tab2 */
 
 import { useState , useEffect } from "react";
 
@@ -14,10 +14,7 @@ import {
   IonCol, 
   IonAlert,
   IonToast,
-  useIonViewWillLeave,
-  useIonViewWillEnter,
-  useIonViewDidEnter,
-  useIonViewDidLeave
+  useIonViewDidEnter
 } from '@ionic/react';
 
 import { save , personCircleOutline } from 'ionicons/icons';
@@ -26,10 +23,10 @@ import Header from '../components/Header';
 import ModalLogin from '../components/ModalLogin';
 import AddUser from '../components/AddUser';
 import AddItem from '../components/AddItem';
-import ButtonUD from '../components/ButtonUD';
+import ButtonD from '../components/ButtonD';
 import About from '../components/About';
 
-import { useShowHide , useAlert , useMessage } from '../hooks/main.jsx';
+import { useShowHide , useAlert , useMessage } from '../hooks/main';
 import { fetchSend } from '../js/helper.js';
 
 import './Tab2.css';
@@ -45,14 +42,14 @@ const Tab2: React.FC = () => {
    * State variable that check loggin status and name user
    * @constant user-setUser
    * @type {useState}  
-   * @memberof pages/Tab2
+   * @memberof view/Tab2
    */
   const [user, setUser] = useState({ logged: false, name: "" });
   /** 
    * State variable that show and hide Modal login component
    * @constant login-openLogin-closeLogin
    * @type {useState}  
-   * @memberof pages/Tab2
+   * @memberof view/Tab2
    */
   const [ login, openLogin, closeLogin ]: any= useShowHide({ req: false });
   /** 
@@ -73,7 +70,7 @@ const Tab2: React.FC = () => {
   /**
    * If user 
    * @function notAuth
-   * @memberof pages/Tab2
+   * @memberof view/Tab2
    */
    const notAuth= ( amessage: string )=>{
     amessage.length > 1 && setToast(amessage);
@@ -85,7 +82,7 @@ const Tab2: React.FC = () => {
   /**
    * First time to open Tab2, then show login modal
    * @callback useEffect->openLogin
-   * @memberof pages/Tab2
+   * @memberof view/Tab2
    */
   useEffect(() => {
     !user.logged && openLogin();
@@ -101,7 +98,7 @@ const Tab2: React.FC = () => {
   /**
    * If user press logout button, then hide and show group of components
    * @function logout
-   * @memberof pages/Tab2
+   * @memberof view/Tab2
    */
   const logout= ()=>{
     setAlert( "Do you wanna close this session?" , async ()=>{
@@ -147,7 +144,7 @@ const Tab2: React.FC = () => {
                   <AddItem actNotAuth= { notAuth } /> 
                 </IonCol>
                 <IonCol sizeXs="12" sizeMd="6" sizeLg="6" offsetMd="3" offsetLg="3" >
-                  <ButtonUD/>
+                  <ButtonD/>
                 </IonCol>
               </IonRow>
             </IonGrid>
@@ -183,7 +180,7 @@ const Tab2: React.FC = () => {
 
         <IonAlert 
           isOpen={ alert.req } 
-          header={'CATALOG M'} 
+          header={'CATALOG 94'} 
           onDidDismiss={ initAlert }
           message= { alert.mess }
           buttons={[

@@ -1,4 +1,4 @@
-/** @namespace components/AllCards */
+/** @namespace view/AllCards */
 
 import { useState , useEffect } from 'react';
 
@@ -14,12 +14,14 @@ import {
 import ModalItem from '../components/ModalItem';
 import ItemList from '../components/ItemList';
 
-import { useItem , useShowHide , useMessage } from '../hooks/main.jsx';
+import { useItem , useShowHide , useMessage } from '../hooks/main';
 import { fetchSend , splitRows } from '../js/helper.js';
 
 /**
- * Component for showing all result in three diferrents IonList
+ * Component for showing all result in three diferents IonList
  * @component
+ * @param {object} props Group elements that inicialize this component
+ * @param {object} props.cliSelection group data give client
  * @returns JSX Element that include a form
  */
 const AllCards: React.FC<{ cliSelection: any }> = ({ cliSelection }) => {
@@ -28,35 +30,35 @@ const AllCards: React.FC<{ cliSelection: any }> = ({ cliSelection }) => {
    * State variable that enable/disable infinite scroll component
    * @constant scroll-setScroll
    * @type {useState}  
-   * @memberof components/AllCards
+   * @memberof view/AllCards
    */
-  const [scroll, setScroll]: any = useState({ disable: true, pos: 0 });
+  const [scroll, setScroll]: [ any , Function ] = useState({ disable: true, pos: 0 });
   /** 
    * State variable that include three arrays, for each array exist objects with information abaout articles
    * @constant items-setItems
    * @type {useState}  
-   * @memberof components/AllCards
+   * @memberof view/AllCards
    */
-  const [items, setItems]: Array<any> = useState([[],[],[]]);
+  const [items, setItems]: [ Array<any> , Function ] = useState([[],[],[]]);
   /** 
    * State variable that is used for show a modal and send vin data to Modal component
    * @constant isCar-openCar-closeCar
    * @type {useState}  
-   * @memberof components/AllCards
+   * @memberof view/AllCards
    */
   const [ isCar, openCar, closeCar ]: any= useItem({ req: false , data: false });
   /** 
    * State variable that is used in loading component
    * @constant isLoading-openLoading-closeLoading
    * @type {useShowHide}  
-   * @memberof components/AllCards
+   * @memberof view/AllCards
    */
   const [ isLoading, openLoading, closeLoading ]: any= useShowHide({ req: false });
   /** 
    * State variable that is used in toast component
    * @constant isToast-setToast-initToast
    * @type {useState}  
-   * @memberof components/AllCards
+   * @memberof view/AllCards
    */
   const [ isToast , setToast , , , initToast ]: any= useMessage({ req: false, mess: "", time: 3000 });
   /**
@@ -65,7 +67,7 @@ const AllCards: React.FC<{ cliSelection: any }> = ({ cliSelection }) => {
    * @param {string} text criterion word to search elements
    * @param {object} filters object that include filters in search
    * @param {number} page indicate number page
-   * @memberof components/AllCards
+   * @memberof view/AllCards
    */
   const searchItems= async( text: string , filters:object= {} , page:number )=>{
     openLoading();
@@ -94,7 +96,7 @@ const AllCards: React.FC<{ cliSelection: any }> = ({ cliSelection }) => {
   /**
    * Search element each user enter new word in search component
    * @callback useEffect->CliSelecton-text
-   * @memberof components/AllCards
+   * @memberof view/AllCards
    */
   useEffect(() => {
     if( cliSelection.text.length > 2 )
@@ -105,7 +107,7 @@ const AllCards: React.FC<{ cliSelection: any }> = ({ cliSelection }) => {
    * send request to search same creiterio previously but diferent page number based on scroll position
    * @function searchNext
    * @param {Event} ev scroll event each pass threshold
-   * @memberof components/AllCards
+   * @memberof view/AllCards
    */
   const searchNext= async ({ target }:{ target: any }) => {
     const accum= items.length >= 3 && ( items[0].length + items[1].length + items[2].length );
@@ -120,7 +122,7 @@ const AllCards: React.FC<{ cliSelection: any }> = ({ cliSelection }) => {
    * @function handleUpdate
    * @param {string} operation specify type operation maked into Modal
    * @param {object|string} info specify information to update/delete
-   * @memberof components/AllCards
+   * @memberof view/AllCards
    */
   const handleUpdate= (operation: string, info: any)=>{
     let newList:any = [ ...items ];
@@ -138,7 +140,14 @@ const AllCards: React.FC<{ cliSelection: any }> = ({ cliSelection }) => {
           <IonGrid>
             <IonRow className="ion-no-margin">
               {
-                items && items.length > 0 && items.map( (colum:any , ind: any) => <ItemList key= { `item-${ind}` } colum= { colum } ind={ ind } actClick= { openCar } /> )
+                items && 
+                items.length > 0 && 
+                items.map( (colum:any , ind: any) => <ItemList 
+                  key= { `item-${ind}` } 
+                  colum= { colum } 
+                  ind={ ind } 
+                  actClick= { openCar } /> 
+                )
               }
             </IonRow>
           </IonGrid>

@@ -5,29 +5,45 @@ This app can do:
 - Search vehicles
 - Filter elements based on category
 - Login local account
+- Generate random values to fill form with a vehicle information
 
-<!--![](/frontend/src/img/readme.png)
+![](/src/theme/image/readme.png)
 
-Web page example link: [Catalog 94](https://myportfolio-94.web.app/projects/catalog94/)
--->
+Web page example link: [Catalog 94](https://catalog94.herokuapp.com)
 
 # Used Technologies
 - Frontend
-  - React
-  - Ionic 5
-  - JS/dayjs
-  - JS/Faker
+  - React JS
+  - React Router
+  - Ionic
+  - Capacitor
+
 - Backend
   - NodeJS
   - Express
-  - Mongoose
+  - Mongo DB
   - Passport
   - Bcrypt
+  - Day.js
+  - Faker.js
+  - Joi.js (Schema descriptor)
+  - Boom (HTTP-friendly error objects)
   - JSdoc
 
 # Links and Resources used in this project
-- [Day-js (light weight alternative moment.js)](https://day.js.org/)
-- [Express-js](https://expressjs.com/)
+- [React-js](https://reactjs.org)
+- [React router](https://reactrouter.com/web/guides/quick-start)
+- [Ionic](https://ionicframework.com)
+- [Capacitor](https://capacitorjs.com)
+- [Express-js](https://expressjs.com)
+- [Mongoose](https://mongoosejs.com)
+- [Passport-js](http://www.passportjs.org)
+- [B-crypt](https://www.npmjs.com/package/bcrypt)
+- [Day-js](https://day.js.org/en)
+- [Faker-js](http://marak.github.io/faker.js)
+- [Joi-js](https://joi.dev)
+- [Boom](https://hapi.dev/module/boom)
+- [Jsdoc](https://jsdoc.app)
 
 # About developer
 - [Adbeel Estrada Portfolio](https://eadbeel94.web.app/)
