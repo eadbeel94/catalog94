@@ -85,7 +85,11 @@ const Tab2: React.FC = () => {
    * @memberof view/Tab2
    */
   useEffect(() => {
-    !user.logged && openLogin();
+    if( localStorage.getItem('logged') ){
+      setUser({ logged: true , name: String(localStorage.getItem('username')) })
+    }else{
+      openLogin();
+    } 
   },[]);
 
   useIonViewDidEnter(() =>{
@@ -101,12 +105,7 @@ const Tab2: React.FC = () => {
    * @memberof view/Tab2
    */
   const logout= ()=>{
-    setAlert( "Do you wanna close this session?" , async ()=>{
-      const url= `/users/logout`;
-      const { stat , mess }= await fetchSend( url , undefined , undefined );
-
-      stat && notAuth(mess);
-    });
+    setAlert( "Do you wanna close this session?" , async ()=> notAuth('Close session successfully') );
   };
 
   return (

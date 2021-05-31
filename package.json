@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "@capacitor/android": "^2.4.7",
     "@capacitor/core": "2.4.7",
+    "@hapi/boom": "^9.1.2",
     "@ionic/react": "^5.5.0",
     "@ionic/react-router": "^5.5.0",
     "@testing-library/jest-dom": "^5.11.9",
@@ -15,9 +17,15 @@
     "@types/react-dom": "^16.9.10",
     "@types/react-router": "^5.1.11",
     "@types/react-router-dom": "^5.1.7",
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
     "dayjs": "^1.10.4",
+    "express": "^4.17.1",
     "faker": "^5.5.3",
     "ionicons": "^5.4.0",
+    "joi": "^17.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.12.12",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router": "^5.2.0",
@@ -36,7 +44,8 @@
     "workbox-range-requests": "^5.1.4",
     "workbox-routing": "^5.1.4",
     "workbox-strategies": "^5.1.4",
-    "workbox-streams": "^5.1.4"
+    "workbox-streams": "^5.1.4",
+    "xlsx": "^0.17.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -68,20 +77,10 @@
   },
   "devDependencies": {
     "@capacitor/cli": "2.4.7",
-    "@hapi/boom": "^9.1.2",
-    "bcrypt": "^5.0.1",
     "better-docs": "^2.3.2",
-    "cors": "^2.8.5",
     "docdash": "^1.2.0",
-    "express": "^4.17.1",
-    "express-session": "^1.17.1",
     "html-webpack-plugin": "^5.3.1",
-    "joi": "^17.4.0",
-    "jsdoc": "^3.6.7",
-    "mongoose": "^5.12.8",
-    "passport": "^0.4.1",
-    "passport-local": "^1.0.0",
-    "xlsx": "^0.17.0"
+    "jsdoc": "^3.6.7"
   },
   "description": "An Ionic project"
 }

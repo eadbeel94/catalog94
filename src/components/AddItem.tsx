@@ -47,7 +47,7 @@ const AddItem: React.FC<{ actNotAuth: Function }>  = ({ actNotAuth }) => {
    * @type {useMessage}  
    * @memberof view/AddItem
    */
-  const [ isToast , setToast , , , initToast ]: any= useMessage({ req: false, mess: "", time: 3500 });
+  const [ isToast , setToast , , , initToast ]: any= useMessage({ req: false, mess: "", time: 2000 });
   /**
    * send request to save element into backend
    * @function saveItem
@@ -76,7 +76,9 @@ const AddItem: React.FC<{ actNotAuth: Function }>  = ({ actNotAuth }) => {
 
   const genRandom= async ()=>{
     const url= `/vehicle/getRandom`;
-    const { stat , data }= await fetchSend( url, undefined, undefined );
+    const { stat , data , mess , noauth }= await fetchSend( url, undefined, undefined );
+    setToast(mess);
+    noauth && actNotAuth(mess);
     stat && setItemForm(data);
   }
 

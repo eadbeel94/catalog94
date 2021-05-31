@@ -1,6 +1,4 @@
 const express= require('express');
-const session= require('express-session');            //Use express-session feartures
-const passport= require('passport');                  //Use passport local authentification methods
 const boom= require('@hapi/boom');
 const cors= require('cors');
 const { join }= require('path');
@@ -10,7 +8,6 @@ const app= express();
 
 if( process.env.NODE_ENV !== 'production' ) require('dotenv').config();
 require('./model/connection.js');
-require('./utils/auth/passport.js');
 
 const { DEBUG , PORT }= require('./utils/config.js');
 
@@ -23,14 +20,6 @@ app.set('PORT' , PORT );
 app.use( cors() );
 app.use( express.json() );
 app.use( express.urlencoded({ extended: true }) );
-app.use(session({                                     //Inicialize session
-  secret: 'secret',
-  resave: true,
-  saveUninitialized: true,
-  cookie: { secure: false, maxAge: 1000 * 60 * 11 }    //Keep session value for 2 minutes
-}));
-app.use(passport.initialize());                       //Inicialize passport
-app.use(passport.session());                          //Inicialize session
 
 //--------------------------- Routes ---------------------------
 require('./routes/apiRoutes.js')(app);

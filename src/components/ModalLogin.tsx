@@ -50,10 +50,10 @@ const ModalLogin: React.FC<{ show: boolean, actClose: VoidFunction, actSignIn: F
     const send= { username: String(ev.target[0].value).toUpperCase() , password: ev.target[1].value };
     const { stat , data , mess }= await fetchSend( url , "POST" , send );
 
-    setToast(mess);
-    localStorage.setItem('logged','true');
-    localStorage.setItem('username', String(data) );
-    actSignIn({ logged: stat , name: data });
+    setToast(`Welcome ${ mess }`);
+    localStorage.setItem('logged', data );
+    localStorage.setItem('username', mess );
+    actSignIn({ logged: stat , name: mess });
     actClose();
   };
 

@@ -22,7 +22,7 @@ Web page example link: [Catalog 94](https://catalog94.herokuapp.com)
   - NodeJS
   - Express
   - Mongo DB
-  - Passport
+  - Json WEB token
   - Bcrypt
   - Day.js
   - Faker.js
@@ -37,7 +37,7 @@ Web page example link: [Catalog 94](https://catalog94.herokuapp.com)
 - [Capacitor](https://capacitorjs.com)
 - [Express-js](https://expressjs.com)
 - [Mongoose](https://mongoosejs.com)
-- [Passport-js](http://www.passportjs.org)
+- [Json-WEB-token](https://www.npmjs.com/package/jsonwebtoken)
 - [B-crypt](https://www.npmjs.com/package/bcrypt)
 - [Day-js](https://day.js.org/en)
 - [Faker-js](http://marak.github.io/faker.js)

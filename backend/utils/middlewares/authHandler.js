@@ -1,12 +1,22 @@
 /** @namespace util/middleware/auth */
 
-const passport= require('passport');
 const boom= require('@hapi/boom');
+const bcrypt= require('bcrypt');
+const jwt= require('jsonwebtoken');
 
-const { NOT_AUTH }= require('../../utils/config.js');
+const { User }= require('../../model/main.js');
+const { SECRET }= require('../../utils/config.js');
+
+const genBoomError= ( message="" , code=500 )=>{
+  const error = boom.badRequest(message);
+  error.output.statusCode = code;
+  error.reformat();
+  error.output.payload.custom = message;
+  return error;
+}
 
 /**
- * Middleware that use passport local strategy to check user credential
+ * Middleware that verify auth user and send a jwt to client
  * @function authHandler
  * @memberof util/middleware/auth
  * @param {object} req server req object
@@ -14,25 +24,27 @@ const { NOT_AUTH }= require('../../utils/config.js');
  * @param {function} next server next object
  * @returns {function} return next() method 
  */
-function authHandler(req,res,next){
-  return passport.authenticate('local', 
-    (err, user, info) => {
-      if (err)
-        return next(err); 
+async function authHandler(req,res,next){
+  const { username, password }= req.body;
 
-      if (!user) 
-        return next(info.message);
+  let client;
+  const newUser = username.toUpperCase();
+  if(username)
+    client = await User.findOne({ account: newUser || '' });
 
-      return req.logIn( user, err => {
-        if (err) 
-          return next(err); 
-        
-        req.session.amessage= info.message;
-        req.session.save();
-        return next();
+  if(!client)
+    return next(genBoomError('User not found'));
+  else{
+    const match = await bcrypt.compare(password, client.password);
+    if(!match)
+      return next(genBoomError('Password not correct'));
+    else{
+      const token= jwt.sign( { id: client._id }, SECRET , {
+        expiresIn: 60 * 60 * 24
       });
+      res.json({ data: token , mess: client.fullname.toUpperCase() });
     }
-  )(req,res,next)
+  }
 };
 
 /**
@@ -44,14 +56,19 @@ function authHandler(req,res,next){
  * @param {function} next server next object
  * @returns {function} return next method 
  */
-function checkLogged(req, res, next) {
-  if(req.isAuthenticated() || NOT_AUTH ) return next();
-  
-  const error = boom.badRequest('User Authentication Required');
-  error.output.statusCode = 511;
-  error.reformat();
-  error.output.payload.custom = 'User Authentication Required';
-  return next(error);
+async function checkLogged(req, res, next) {
+
+  const token= req.headers['x-access-token'];
+  if(!token) return next( genBoomError('No token provided' , 511) );
+
+  try {
+    const { id }= jwt.verify(token,SECRET);
+    const found= await User.findById(id).distinct('_id');
+    if(!found) return next( genBoomError('Not user found',511) );
+  } catch (error) {
+    return next( genBoomError(error.message + " You must sign in again" ,511) );
+  }
+  return next();
 };
 
 module.exports= { authHandler , checkLogged };

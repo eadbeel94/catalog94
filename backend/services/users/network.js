@@ -26,7 +26,7 @@ router.post('/addOne' , checkLogged , valid( userNewSchema ) , async (req,res,ne
   } catch (error) {   next(error);    };
 });
 /**
- * Verify credential user, use middleware passport strategy custom
+ * Verify credential user, use middleware authHandler
  *
  * @name auth
  * @path {POST} /api/users/auth
@@ -35,30 +35,6 @@ router.post('/addOne' , checkLogged , valid( userNewSchema ) , async (req,res,ne
  * @response {string} mess contain status message
  * @memberof route/user
  */
-router.post("/auth" , authHandler , async (req, res, next) => {
-  try {
-    const { amessage , passport }= req.session;
-
-    let data= "";
-    if( passport.user ) data= String(passport.user.fullname).toUpperCase();
-    
-    res.json({ data , mess: amessage });
-  } catch (error) {   next(error)   };
-});
-/**
- * Execute session end
- *
- * @name logout
- * @path {GET} /api/users/logout
- * @response {object} data
- * @response {string} mess contain status message
- * @memberof route/user
- */
-router.get("/logout" , async (req, res, next) => {
-  try {
-    req.logout();    
-    res.json({ data: true , mess: "Session closed successfully" });
-  } catch (error) {   next(error)   };
-});
+router.post("/auth" , authHandler );
 
 module.exports= router;

@@ -24,10 +24,14 @@ const ButtonD: React.FC = () => {
    * @memberof view/AddUser
    */
   const donwload= async ()=>{
-    const url= `http://localhost:3001/api/vehicle/download`;
-
     try {
-      const res= await fetch(url);
+      const res= await fetch(`http://localhost:3001/api/vehicle/download`,{
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-access-token': localStorage.getItem('logged') || ''
+        }
+      });
+
       if( !res.ok ) throw new Error(res.statusText);
 
       const file= await res.blob();

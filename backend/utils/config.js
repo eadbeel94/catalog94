@@ -5,5 +5,6 @@ module.exports= {
   PORT:     process.env.PORT || '3001',
   DB_URI:   process.env.MONGO_URI,
   NOT_AUTH: process.env.NOT_AUTH === "true",
-  TEST_ID:  process.env.TEST_ID || false 
+  TEST_ID:  process.env.TEST_ID || false,
+  SECRET:   process.env.SECRET  || "secret"
 }

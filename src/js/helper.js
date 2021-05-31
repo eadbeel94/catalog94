@@ -31,7 +31,7 @@ export const fetchSend= async( url="" , type="" , send )=>{
    * @const {string} IP
    * @memberof view/helper
    */
-  const IP= process.env.NODE_ENV !== 'production' ? `http://localhost:3001/api` : `/api`
+  const IP= process.env.NODE_ENV !== 'production' ? `http://localhost:3001/api` : `/api`    //`http://catalog94.herokuapp.com/api`;
 
   /** 
   * End state after process endopoint response
@@ -60,7 +60,10 @@ export const fetchSend= async( url="" , type="" , send )=>{
 
   try {
     const config= { method: type || "GET" };
-    config.headers= { 'X-Requested-With': 'XMLHttpRequest' };
+    config.headers= { 
+      'X-Requested-With': 'XMLHttpRequest',
+      'X-access-token': localStorage.getItem('logged') || ''
+    };
     send && ( config.body= JSON.stringify(send) );
     send && ( config.headers= { ...config.headers , 'Content-Type': 'application/json'  }  );
 
