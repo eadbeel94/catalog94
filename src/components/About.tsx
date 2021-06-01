@@ -37,7 +37,7 @@ const About: React.FC = () => {
         </IonChip>
         <br/>
         <p>
-          SEE DOCUMENTATION, ENTER THIS LINK <a href="/static/doc/">DOCUMENTATION</a>
+          SEE DOCUMENTATION, ENTER THIS LINK <a href="https://catalog94.herokuapp.com/static/doc/">DOCUMENTATION</a>
         </p>
         <span>
           CATALOG 94 COPYRIGHT© 2021 
