@@ -31,7 +31,7 @@ export const fetchSend= async( url="" , type="" , send )=>{
    * @const {string} IP
    * @memberof view/helper
    */
-  const IP= process.env.NODE_ENV !== 'production' ? `http://localhost:3001/api` : `/api`    //`http://catalog94.herokuapp.com/api`;
+  const IP= `/api`;   //process.env.NODE_ENV !== 'production' ? `http://localhost:3001/api` : `/api`    //  catalog94.herokuapp.com
 
   /** 
   * End state after process endopoint response

@@ -161,6 +161,7 @@
   text-align: center;
   padding: 1rem;
   font-size: 1.25rem;
+  color: white;
 }
 
 .modal-item-title div{
@@ -189,6 +190,7 @@
 
 .modal-item-body input{
   padding-bottom: 0 !important;
+  color: white !important;
 }
 
 .modal-item-body span{

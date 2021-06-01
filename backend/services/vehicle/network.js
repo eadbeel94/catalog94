@@ -150,19 +150,16 @@ router.get('/getRandom' , checkLogged , async (req,res,next)=>{
 });
 
 /**
- * Get all Vehicles and convert a excel file, use middleware to check log in status
+ * Get all Vehicles, use middleware to check log in status
  *
- * @name download
- * @path {GET} /api/vehicle/download
+ * @name getAll
+ * @path {GET} /api/vehicle/getAll
  * @memberof route/vehicle
  */
-router.get('/download' , checkLogged , async (req,res,next)=>{
+router.get('/getAll' , checkLogged , async (req,res,next)=>{
   try {
-    const filename= await getAllElemens();
-    res.download(filename , err =>{
-      if(err) next(err)
-      else    fs.unlinkSync( filename );
-    });
+    const data= await getAllElemens();
+    res.json({ data , mess: "Get all elements successfully" });
   } catch (error) {   next(error);    };
 });
 

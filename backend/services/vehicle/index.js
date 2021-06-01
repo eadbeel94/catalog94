@@ -2,11 +2,7 @@
 
 const { vehicle: automobile }= require('faker');
 const { StoreVehicle }= require('./store.js');
-const { join }= require('path');
-const XLSX= require('xlsx');
 const m= require('dayjs');
-/*m.extend(require('dayjs/plugin/localizedFormat'));
-m.extend(require('dayjs/plugin/relativeTime'));*/
 
 /**
  * Call methods to modify values into collection recipe
@@ -109,9 +105,13 @@ module.exports= {
       color: color()
     };
   }, 
-
+  /**
+   * Generate an array of object with all vehicles 
+   * @function getAllElemens
+   * @memberof service/vehicle
+   * @returns {object} Return all vehicles
+   */
   getAllElemens: async ()=>{
-    //const rows= [];
     let vehicles= await store.getAll();
 
     vehicles= vehicles.map( car => {
@@ -126,7 +126,7 @@ module.exports= {
       }
     });
 
-    vehicles= [ {
+    return [ {
       vin:   "Vehicle ID",
       name:  "Vehicle name",
       manuf: "Manufacturer", 
@@ -135,14 +135,5 @@ module.exports= {
       fuel:  "Fuel Type",
       color: "Color"
     } , ...vehicles ];
-
-    const wb = XLSX.utils.book_new();
-    const ws= XLSX.utils.json_to_sheet( vehicles, { header: ['vin','name','manuf','model','type','fuel','color'] , skipHeader: true } );
-    XLSX.utils.book_append_sheet(wb, ws, "Backup");
-    const fullpath= join( __dirname , '../../tmp/' , `Catalog-94_${ m().unix() }.xlsx` );
-
-    await XLSX.writeFile( wb , fullpath )
-
-    return fullpath;
   },
 };

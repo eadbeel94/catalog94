@@ -30,8 +30,11 @@ yarn-error.log*
 other/
 src/theme/fonts/
 src/theme/img/
-public/doc
+public/doc/
 .env
 backend2/
-backend/tmp
-android
+backend/tmp/
+android/
+android2/
+build2/
+resources/

@@ -135,7 +135,7 @@ const AddUser: React.FC<{ actNotAuth: Function }>  = ({ actNotAuth }) => {
               />
             </IonItem>
 
-            <IonButton type="submit" fill="clear" class='btn-outline-typeA w-75' expand="block"> 
+            <IonButton type="submit" fill="clear" class='btn-outline-typeA' expand="block"> 
               <IonIcon icon={save} /> SAVE 
             </IonButton> 
           </IonCardContent>

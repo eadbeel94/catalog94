@@ -87,7 +87,7 @@ const Tab1: React.FC = () => {
    */
   const selectStart= (filters: object)=>{
     setUserSearch({ ...userSearch , filters });
-  }
+  };
 
   return (
     <IonPage>

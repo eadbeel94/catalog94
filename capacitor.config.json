@@ -1,6 +1,6 @@
 {
-  "appId": "web.app.catalog",
-  "appName": "Catalog Mobile",
+  "appId": "com.herokuapp.catalog94",
+  "appName": "Catalog 94",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "build",
