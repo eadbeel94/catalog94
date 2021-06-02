@@ -1,5 +1,5 @@
 # CATALOG 94
-is a simple CRUD app Full stack MERN project that use Reac JS library in frontend side, into backend side include node js, express js and mongo DB.
+is a simple CRUD app Full stack MERN project that use React JS library and also use Ionic framework in frontend side, into backend side include node js, express js and mongo DB.
 
 This app can do:
 - Search vehicles
